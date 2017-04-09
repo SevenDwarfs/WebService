@@ -1,4 +1,6 @@
-## 订你所想 在线电影订票软件
+# 订你所想 在线电影订票软件
+
+[![Build Status](https://travis-ci.org/Kinpzz/movie-booking.svg?branch=master)](https://travis-ci.org/Kinpzz/movie-booking)
 
 ## 构建环境
 Eclipse + Maven + Spring-boot
