@@ -13,5 +13,10 @@ Run as -> Maven Build -> 在 Goals 写
 ```
 spring-boot:run
 ```
+
+## 访问
+```
+localhost:8080
+```
 ## 更新
 0.0.1 项目启动，HelloWorld
