@@ -15,5 +15,11 @@ Run as -> Maven Build -> 在 Goals 写
 ```
 spring-boot:run
 ```
+
+## 访问
+```
+localhost:8080
+```
 ## 更新
-0.0.1 项目启动，HelloWorld
+v0.0.2 项目引入checkstyle，修改包名和代码使得符合Google风格
+v0.0.1 项目启动，HelloWorld
