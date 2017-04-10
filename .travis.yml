@@ -2,7 +2,3 @@ language: java
 
 jdk:
   - oraclejdk8
-
-after_script:
-  - mvn checkstyle:check --batch-mode --fail-never
-
