@@ -22,12 +22,10 @@ public class SpringMvcQuickstartApplication implements EmbeddedServletContainerC
   }
 
   /**
-  * @Title: customize
+  * @Title: customize.
   * @Description: 实现 EmbeddedServletContainerCustomizer 接口方法customize，这里可以设置
   *         web应用服务器监听的端口 8080
   * @param container 我也不知道是什么
-  * @see org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer#customize(
-  *       org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer)
   */
   public void customize(ConfigurableEmbeddedServletContainer container) {
     container.setPort(8080);
