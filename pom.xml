@@ -10,7 +10,7 @@
   
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <java.version>1.8</java.version>
+        <java.version>1.8</java.version>
     </properties>
   
    <!-- Inherit defaults from Spring Boot -->
@@ -27,10 +27,10 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-          <!-- <version>4.12</version> -->
-          <scope>test</scope>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <!-- <version>4.12</version> -->
+            <scope>test</scope>
         </dependency>
     </dependencies>
   
@@ -42,6 +42,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
+            <!-- checkstytle -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -62,6 +63,18 @@
                     </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- pmd -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.7</version>
+                <configuration>
+                    <rulesets>
+                        <ruleset>.pmd</ruleset>
+                    </rulesets>
+                </configLocation>
             </plugin>
 
         </plugins>
