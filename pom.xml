@@ -74,7 +74,7 @@
                     <rulesets>
                         <ruleset>.pmd</ruleset>
                     </rulesets>
-                </configLocation>
+                </configuration>
             </plugin>
 
         </plugins>
