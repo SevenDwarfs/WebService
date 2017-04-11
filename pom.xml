@@ -72,7 +72,7 @@
                 <version>3.7</version>
                 <configuration>
                     <rulesets>
-                        <ruleset>.pmd</ruleset>
+                        <ruleset>/.pmd</ruleset>
                     </rulesets>
                 </configuration>
                 <executions>
