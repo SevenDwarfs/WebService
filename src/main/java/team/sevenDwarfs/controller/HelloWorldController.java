@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 */
 @RestController
 @EnableAutoConfiguration
+
 public class HelloWorldController {
   /**
   * @Description 接受 / 下的HTTP路由.
