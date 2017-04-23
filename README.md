@@ -21,5 +21,6 @@ spring-boot:run
 localhost:8080
 ```
 ## 更新
+- v0.0.3 项目引入代码质量管理插件PMD
 - v0.0.2 项目引入checkstyle，修改包名和代码使得符合Google风格
 - v0.0.1 项目启动，HelloWorld
