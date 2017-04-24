@@ -5,6 +5,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
@@ -22,6 +24,7 @@ import java.util.Properties;
  * Created by deng on 2017/4/23.
  */
 @Configurable
+//@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 @PropertySource({"classpath:application.properties"})
 public class SpringConfiguration {
     private static final String HibernateDialect = "hibernate.dialect";
@@ -30,33 +33,33 @@ public class SpringConfiguration {
     private static final String HibernatePackagesToScan = "hibernate.packagesToScan";
     private static final String HibernateFormatSql = "hibernate.format_sql";
 
-    @Value("${c3p0.jdbcUrl}")
+    @Value("${spring.datasource.jdbcUrl}")
     private String url;
-    @Value("${c3p0.username}")
+    @Value("${spring.datasource.username}")
     private String username;
-    @Value("${c3p0.password}")
+    @Value("${spring.datasource.password}")
     private String password;
-    @Value("${c3p0.driverClass}")
+    @Value("${spring.datasource.driver-class-name}")
     private String driverClassName;
-    @Value("${c3p0.minPoolSize}")
+    @Value("${spring.datasource.minPoolSize}")
     private Integer minPoolSize;
-    @Value("${c3p0.maxPoolSize}")
+    @Value("${spring.datasource.maxPoolSize}")
     private Integer maxPoolSize;
-    @Value("${c3p0.maxIdleTime}")
+    @Value("${spring.datasource.maxIdleTime}")
     private Integer maxIdleTime;
-    @Value("${c3p0.acquireIncrement}")
+    @Value("${spring.datasource.acquireIncrement}")
     private Integer acquireIncrement;
-    @Value("${c3p0.maxStatements}")
+    @Value("${spring.datasource.maxStatements}")
     private Integer maxStatements;
-    @Value("${c3p0.initialPoolSize}")
+    @Value("${spring.datasource.initialPoolSize}")
     private Integer initialPoolSize;
-    @Value("${c3p0.idleConnectionTestPeriod}")
+    @Value("${spring.datasource.idleConnectionTestPeriod}")
     private Integer idleConnectionTestPeriod;
 
     @Autowired
     private Environment env;
 
-    @Bean("dataSource")
+    @Bean
     @Primary
     public DataSource dataSource() throws PropertyVetoException {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
