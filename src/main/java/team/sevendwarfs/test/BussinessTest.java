@@ -1,23 +1,19 @@
 package team.sevendwarfs.test;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import team.sevendwarfs.DatasourceConfiguration;
-import team.sevendwarfs.business.entities.Movie;
-import team.sevendwarfs.business.entities.Person;
+import team.sevendwarfs.SpringConfiguration;
+import team.sevendwarfs.persistence.entities.Movie;
+import team.sevendwarfs.persistence.entities.Person;
 
 import javax.sql.DataSource;
-import java.sql.Array;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,19 +23,14 @@ import java.util.Set;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = DatasourceConfiguration.class)
+@SpringBootTest(classes = SpringConfiguration.class)
 public class BussinessTest {
     @Autowired
     DataSource dataSource;
 
-    @Value("${spring.jpa.hibernate.ddl-auto}")
-    String string;
-
-    @Value("${c3p0.minPoolSize}")
-    Integer minPoolSize;
-
     @Autowired
     SessionFactory sessionFactory;
+
     /**
      * 测试 C3P0 数据源是否成功连接数据库
      * @throws SQLException
@@ -49,8 +40,11 @@ public class BussinessTest {
         System.out.println(dataSource.getConnection());
     }
 
+    /**
+     * 测试 Hibernate 是否配置成功，并向数据库中添加几个数据
+     */
     @Test
-    public void hibernate() {
+    public void hibernateTest() {
         System.out.println(sessionFactory);
         Session session = sessionFactory.openSession();
         Transaction tx= session.beginTransaction();
@@ -65,8 +59,8 @@ public class BussinessTest {
         movie1.setChineseName("速度与激情8");
         movie1.setEnglishName("speed and ?? 8");
 
-        movie1.setChineseName("功夫熊猫");
-        movie1.setEnglishName("Kongfu Panda");
+        movie2.setChineseName("功夫熊猫");
+        movie2.setEnglishName("Kongfu Panda");
 
         person1.setName("李青");
         person2.setName("崔斯塔娜");

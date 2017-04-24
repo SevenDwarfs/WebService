@@ -1,4 +1,4 @@
-package team.sevendwarfs.business.entities;
+package team.sevendwarfs.persistence.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Set;
 
 /**
+ * 映射数据表 movie
  * Created by deng on 2017/4/23.
  */
 
@@ -13,7 +14,7 @@ import java.util.Set;
 @Table(name = "movie")
 public class Movie implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id")
     private  Long id;
 
@@ -45,15 +46,21 @@ public class Movie implements Serializable {
     @Column(name = "introduction")
     private String introduction;
 
-    // 电影人
+    /**
+     * 电影人
+     * 执行双向多对多关联映射关系
+     * @JoinTable: name: 中间表名
+     *             joinColumns: 我方在中间表的外键
+     *             inverseJoinColumns: 对方在中间表的外键
+     */
     @Column(name = "moiver")
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "movie_person",
             joinColumns = @JoinColumn(name = "mid"),
             inverseJoinColumns = @JoinColumn(name = "pid")
     )
-    private  Set<Person> moivers;
+    private Set<Movie> moviers;
 
     public Long getId() {
         return id;
@@ -119,11 +126,11 @@ public class Movie implements Serializable {
         this.introduction = introduction;
     }
 
-    public Set<Person> getMoivers() {
-        return moivers;
+    public Set<Movie> getMoviers() {
+        return moviers;
     }
 
-    public void setMoivers(Set<Person> moivers) {
-        this.moivers = moivers;
+    public void setMoviers(Set<Movie> moviers) {
+        this.moviers = moviers;
     }
 }

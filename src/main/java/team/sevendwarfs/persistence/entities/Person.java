@@ -1,8 +1,7 @@
-package team.sevendwarfs.business.entities;
+package team.sevendwarfs.persistence.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,7 +12,7 @@ import java.util.Set;
 @Table(name = "person")
 public class Person implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id")
     private Long id;
 
@@ -29,13 +28,12 @@ public class Person implements Serializable {
     @Column(name = "type")
     private String type;
 
-    // 与之相关的电影
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "movie_person",
-            joinColumns = @JoinColumn(name = "pid"),
-            inverseJoinColumns = @JoinColumn(name = "mid")
-    )
+    /**
+     * 配置双向多对多关联映射关系
+     * 由 movier 维护映射关系
+     * mappedBy: 对方对应列的名字, targetEntity: 对方持久化类类名
+     */
+    @ManyToMany(mappedBy = "moviers", targetEntity = Movie.class)
     private Set<Movie> moives;
 
     public Long getId() {
