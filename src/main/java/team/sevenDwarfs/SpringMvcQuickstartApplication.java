@@ -8,6 +8,7 @@ import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletCont
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
@@ -19,6 +20,7 @@ import javax.sql.DataSource;
 * @date 2017年4月9日 上午11:06:07
 */
 @SpringBootApplication
+@ComponentScan("classpath:*")
 public class SpringMvcQuickstartApplication implements EmbeddedServletContainerCustomizer {
 
   /**

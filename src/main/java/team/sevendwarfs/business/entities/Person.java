@@ -3,6 +3,7 @@ package team.sevendwarfs.business.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by deng on 2017/4/23.
@@ -12,7 +13,7 @@ import java.util.List;
 @Table(name = "person")
 public class Person implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -29,7 +30,13 @@ public class Person implements Serializable {
     private String type;
 
     // 与之相关的电影
-    private List<Movie> movieList;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "movie_person",
+            joinColumns = @JoinColumn(name = "pid"),
+            inverseJoinColumns = @JoinColumn(name = "mid")
+    )
+    private Set<Movie> moives;
 
     public Long getId() {
         return id;
@@ -63,13 +70,11 @@ public class Person implements Serializable {
         this.type = type;
     }
 
-    public List<Movie> getMovieList() {
-        return movieList;
+    public Set<Movie> getMoives() {
+        return moives;
     }
 
-    // 设置多对多关联映射，由Movice维护多对多映射关系
-    @ManyToMany(mappedBy = "person")
-    public void setMovieList(List<Movie> movieList) {
-        this.movieList = movieList;
+    public void setMoives(Set<Movie> moives) {
+        this.moives = moives;
     }
 }

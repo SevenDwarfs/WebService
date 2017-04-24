@@ -1,9 +1,9 @@
 package team.sevendwarfs.business.entities;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by deng on 2017/4/23.
@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Table(name = "movie")
 public class Movie implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private  Long id;
 
@@ -45,27 +45,15 @@ public class Movie implements Serializable {
     @Column(name = "introduction")
     private String introduction;
 
-    // 导演名单
-    private List<Person> directors;
-
-    // 演员名单
-    private List<Person> actors;
-
-    public List<Person> getDirectors() {
-        return directors;
-    }
-
-    public void setDirectors(List<Person> directors) {
-        this.directors = directors;
-    }
-
-    public List<Person> getActors() {
-        return actors;
-    }
-
-    public void setActors(List<Person> actors) {
-        this.actors = actors;
-    }
+    // 电影人
+    @Column(name = "moiver")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "movie_person",
+            joinColumns = @JoinColumn(name = "mid"),
+            inverseJoinColumns = @JoinColumn(name = "pid")
+    )
+    private  Set<Person> moivers;
 
     public Long getId() {
         return id;
@@ -107,14 +95,6 @@ public class Movie implements Serializable {
         this.length = length;
     }
 
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
     public String getUrl() {
         return url;
     }
@@ -123,15 +103,27 @@ public class Movie implements Serializable {
         this.url = url;
     }
 
-    // 设置多对多关联映射
-    @ManyToMany
-    @JoinTable(name="movice_person", joinColumns={@JoinColumn(name="mid") },
-            inverseJoinColumns = {@JoinColumn(name="pid")})
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
     public String getIntroduction() {
         return introduction;
     }
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public Set<Person> getMoivers() {
+        return moivers;
+    }
+
+    public void setMoivers(Set<Person> moivers) {
+        this.moivers = moivers;
     }
 }
