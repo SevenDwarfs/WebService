@@ -20,7 +20,13 @@ spring-boot:run
 ```
 localhost:8080
 ```
+
+## 测试
+测试前需要在 application.properties 文件中填写自己数据库的用户名和密码，并且需要本地Mysql有 movieBooking 库
+运行 BussinessTest类 的两个测试方法，如果测试通过说明配置成功
+
 ## 更新
+- v0.0.4 集成 c3p0 和 Hibernate
 - v0.0.3 项目引入代码质量管理插件PMD
 - v0.0.2 项目引入checkstyle，修改包名和代码使得符合Google风格
 - v0.0.1 项目启动，HelloWorld
