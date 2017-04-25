@@ -17,6 +17,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
@@ -104,6 +105,31 @@ public class SpringConfiguration {
         SessionFactory sessionFactory = localSessionFactoryBean.getObject();
         return sessionFactory;
     }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory
+            (DataSource dataSource) {
+        final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource);
+        em.setPackagesToScan(env.getRequiredProperty(HIBERNATEPACKAGESCAN));
+
+        final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        em.setJpaVendorAdapter(vendorAdapter);
+        em.setJpaProperties(hibProperties());
+        em.afterPropertiesSet();
+
+        return em;
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {
+        final JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(emf);
+        return transactionManager;
+    }
+
+
+
 
     private Properties hibProperties() {
         Properties properties = new Properties();
