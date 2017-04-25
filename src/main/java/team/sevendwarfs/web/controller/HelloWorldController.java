@@ -13,7 +13,6 @@ import team.sevendwarfs.persistence.service.PersonService;
  * @date 2017年4月9日 上午11:05:40
  */
 @RestController
-//@EnableAutoConfiguration
 public class HelloWorldController {
     @Autowired
     PersonService personService;

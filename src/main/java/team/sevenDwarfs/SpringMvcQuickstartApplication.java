@@ -39,4 +39,5 @@ public class SpringMvcQuickstartApplication implements EmbeddedServletContainerC
   public void customize(ConfigurableEmbeddedServletContainer container) {
     container.setPort(8080);
   }
+
 }

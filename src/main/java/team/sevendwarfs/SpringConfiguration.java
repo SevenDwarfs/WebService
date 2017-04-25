@@ -4,7 +4,6 @@ import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -17,7 +16,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
@@ -33,9 +31,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * Created by deng on 2017/4/23.
  */
 @Configurable
-@ComponentScan({ "team.sevendwarfs.persistence", "team.sevendwarfs.web.controller" })
 @EnableTransactionManagement
+//@ComponentScan({"team.sevendwarfs.persistence", "team.sevendwarfs.web.controller"})
 @PropertySource({"classpath:application.properties"})
+@ComponentScan("team.sevendwarfs")
 public class SpringConfiguration {
     private static final String HIBERNATEDIALECT = "hibernate.dialect";
     private static final String HIBERNATESHOWSQL = "hibernate.show_sql";
@@ -107,7 +106,7 @@ public class SpringConfiguration {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory
+    public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean
             (DataSource dataSource) {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
