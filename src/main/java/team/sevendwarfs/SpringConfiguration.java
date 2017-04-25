@@ -12,11 +12,14 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
@@ -25,6 +28,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import team.sevendwarfs.persistence.entities.Person;
 
 /**
  * 配置类, 配置文件为: application.properties
@@ -33,7 +37,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configurable
 @ComponentScan({ "team.sevendwarfs.persistence", "team.sevendwarfs.web.controller" })
-@EnableTransactionManagement
 @PropertySource({"classpath:application.properties"})
 public class SpringConfiguration {
     private static final String HIBERNATEDIALECT = "hibernate.dialect";
@@ -68,7 +71,7 @@ public class SpringConfiguration {
     @Autowired
     private Environment env;
 
-    @Bean
+    @Bean(name = "dataSource")
     @Primary
     public DataSource dataSource() throws PropertyVetoException {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
@@ -92,6 +95,7 @@ public class SpringConfiguration {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource);
         sessionFactoryBean.setPackagesToScan(env.getRequiredProperty(HIBERNATEPACKAGESCAN));
+        // 设置完属性之后需要调用 afterPropertiesSet方法使配置生效
         sessionFactoryBean.setHibernateProperties(hibProperties());
         sessionFactoryBean.afterPropertiesSet();
         return sessionFactoryBean;
@@ -103,6 +107,32 @@ public class SpringConfiguration {
             PropertyVetoException, IOException {
         SessionFactory sessionFactory = localSessionFactoryBean.getObject();
         return sessionFactory;
+    }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory
+            (DataSource dataSource) {
+        final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource);
+        final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        em.setJpaVendorAdapter(vendorAdapter);
+        em.setPackagesToScan(env.getRequiredProperty(HIBERNATEPACKAGESCAN));
+        // 设置完属性之后需要调用 afterPropertiesSet方法使配置生效
+        em.setJpaProperties(hibProperties());
+        em.afterPropertiesSet();
+        return em;
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {
+        final JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(emf);
+        return transactionManager;
+    }
+
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+        return new PersistenceExceptionTranslationPostProcessor();
     }
 
     private Properties hibProperties() {
