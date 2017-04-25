@@ -4,6 +4,8 @@ import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.util.Properties;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
@@ -11,12 +13,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * 配置类, 配置文件为: application.properties
@@ -24,6 +32,8 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
  * Created by deng on 2017/4/23.
  */
 @Configurable
+@ComponentScan({ "team.sevendwarfs.persistence", "team.sevendwarfs.web.controller" })
+@EnableTransactionManagement
 @PropertySource({"classpath:application.properties"})
 public class SpringConfiguration {
     private static final String HIBERNATEDIALECT = "hibernate.dialect";
@@ -77,10 +87,10 @@ public class SpringConfiguration {
     }
 
     @Bean("localSessionFactoryBean")
-    public LocalSessionFactoryBean localSessionFactoryBean() throws
+    public LocalSessionFactoryBean localSessionFactoryBean(DataSource dataSource) throws
             PropertyVetoException, IOException {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-        sessionFactoryBean.setDataSource(dataSource());
+        sessionFactoryBean.setDataSource(dataSource);
         sessionFactoryBean.setPackagesToScan(env.getRequiredProperty(HIBERNATEPACKAGESCAN));
         sessionFactoryBean.setHibernateProperties(hibProperties());
         sessionFactoryBean.afterPropertiesSet();
@@ -89,8 +99,9 @@ public class SpringConfiguration {
 
     @Bean("sessionFactory")
     @Primary
-    public SessionFactory sessionFactory() throws PropertyVetoException, IOException {
-        SessionFactory sessionFactory = localSessionFactoryBean().getObject();
+    public SessionFactory sessionFactory(LocalSessionFactoryBean localSessionFactoryBean) throws
+            PropertyVetoException, IOException {
+        SessionFactory sessionFactory = localSessionFactoryBean.getObject();
         return sessionFactory;
     }
 

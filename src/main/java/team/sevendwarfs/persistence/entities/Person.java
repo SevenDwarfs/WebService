@@ -2,6 +2,7 @@ package team.sevendwarfs.persistence.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,10 +12,13 @@ import java.util.Set;
 @Entity
 @Table(name = "person")
 public class Person implements Serializable {
+    static final public String ACTOR = "actor";
+    static final public String DIRECTOR = "director";
+
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     // 名字
     @Column(name = "name")
@@ -34,13 +38,13 @@ public class Person implements Serializable {
      * mappedBy: 对方对应成员变量名, targetEntity: 对方持久化类类名
      */
     @ManyToMany(mappedBy = "moviers", targetEntity = Movie.class)
-    private Set<Movie> moives;
+    private List<Movie> moives;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -68,11 +72,21 @@ public class Person implements Serializable {
         this.type = type;
     }
 
-    public Set<Movie> getMoives() {
+    public List<Movie> getMoives() {
         return moives;
     }
 
-    public void setMoives(Set<Movie> moives) {
+    public void setMoives(List<Movie> moives) {
         this.moives = moives;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", type='" + type + '\'' +
+                '}';
     }
 }

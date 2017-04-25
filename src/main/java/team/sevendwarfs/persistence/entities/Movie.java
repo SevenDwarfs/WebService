@@ -2,8 +2,7 @@ package team.sevendwarfs.persistence.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 映射数据表 movie
@@ -16,7 +15,7 @@ public class Movie implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private  Long id;
+    private Integer id;
 
     // 中文名字
     @Column(name = "chinese_name")
@@ -60,13 +59,43 @@ public class Movie implements Serializable {
             joinColumns = @JoinColumn(name = "mid"),
             inverseJoinColumns = @JoinColumn(name = "pid")
     )
-    private Set<Person> moviers;
+    private List<Person> moviers;
 
-    public Long getId() {
+    // 演员名单
+    @Transient
+    private List<Person> actors;
+
+    @Transient
+    private List<Person> directors;
+
+    public List<Person> getActors() {
+        if (this.actors == null) {
+            this.actors = new LinkedList<Person>();
+            for (Person person : this.moviers) {
+                if (Person.ACTOR.equals(person.getType()))
+                { this.actors.add(person); }
+            }
+        }
+        return this.actors;
+    }
+
+    public List<Person> getDirectors() {
+        if (this.directors == null) {
+            this.directors = new LinkedList<Person>();
+            for (Person person : this.moviers) {
+                if (Person.DIRECTOR.equals(person.getType()))
+                { this.directors.add(person); }
+            }
+        }
+        return this.actors;
+    }
+
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -126,11 +155,25 @@ public class Movie implements Serializable {
         this.introduction = introduction;
     }
 
-    public Set<Person> getMoviers() {
+    public List<Person> getMoviers() {
         return moviers;
     }
 
-    public void setMoviers(Set<Person> moviers) {
+    public void setMoviers(List<Person> moviers) {
         this.moviers = moviers;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", chineseName='" + chineseName + '\'' +
+                ", englishName='" + englishName + '\'' +
+                ", type='" + type + '\'' +
+                ", length='" + length + '\'' +
+                ", url='" + url + '\'' +
+                ", releaseDate=" + releaseDate +
+                ", introduction='" + introduction + '\'' +
+                '}';
     }
 }
