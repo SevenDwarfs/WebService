@@ -31,7 +31,7 @@ public class Person implements Serializable {
     /**
      * 配置双向多对多关联映射关系
      * 由 movier 维护映射关系
-     * mappedBy: 对方对应列的名字, targetEntity: 对方持久化类类名
+     * mappedBy: 对方对应成员变量名, targetEntity: 对方持久化类类名
      */
     @ManyToMany(mappedBy = "moviers", targetEntity = Movie.class)
     private Set<Movie> moives;

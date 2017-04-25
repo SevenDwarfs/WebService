@@ -4,7 +4,7 @@ jdk:
   - oraclejdk8
 
 before_script:
-  - mvn pmd:check
+  - mvn pmd:check --batch-mode --fail-never
   - mvn pmd:cpd-check
   - cat target/pmd.xml
 

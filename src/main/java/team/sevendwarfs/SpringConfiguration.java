@@ -1,22 +1,22 @@
 package team.sevendwarfs;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+import java.beans.PropertyVetoException;
+import java.io.IOException;
+import java.util.Properties;
+
+import javax.sql.DataSource;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
-import javax.sql.DataSource;
-import java.beans.PropertyVetoException;
-import java.io.IOException;
-import java.util.Properties;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 /**
  * 配置类, 配置文件为: application.properties
@@ -24,14 +24,13 @@ import java.util.Properties;
  * Created by deng on 2017/4/23.
  */
 @Configurable
-//@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 @PropertySource({"classpath:application.properties"})
 public class SpringConfiguration {
-    private static final String HibernateDialect = "hibernate.dialect";
-    private static final String HibernateShowSql = "hibernate.show_sql";
-    private static final String HibernateDDLAuto = "hibernate.hbm2ddl.auto";
-    private static final String HibernatePackagesToScan = "hibernate.packagesToScan";
-    private static final String HibernateFormatSql = "hibernate.format_sql";
+    private static final String HIBERNATEDIALECT = "hibernate.dialect";
+    private static final String HIBERNATESHOWSQL = "hibernate.show_sql";
+    private static final String HIBERNATEDDLAUTO = "hibernate.hbm2ddl.auto";
+    private static final String HIBERNATEPACKAGESCAN = "hibernate.packagesToScan";
+    private static final String HIBERNATEFORMATSQL = "hibernate.format_sql";
 
     @Value("${spring.datasource.jdbcUrl}")
     private String url;
@@ -82,7 +81,7 @@ public class SpringConfiguration {
             PropertyVetoException, IOException {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource());
-        sessionFactoryBean.setPackagesToScan(env.getRequiredProperty(HibernatePackagesToScan));
+        sessionFactoryBean.setPackagesToScan(env.getRequiredProperty(HIBERNATEPACKAGESCAN));
         sessionFactoryBean.setHibernateProperties(hibProperties());
         sessionFactoryBean.afterPropertiesSet();
         return sessionFactoryBean;
@@ -97,10 +96,10 @@ public class SpringConfiguration {
 
     private Properties hibProperties() {
         Properties properties = new Properties();
-        properties.put(HibernateDialect, env.getRequiredProperty(HibernateDialect));
-        properties.put(HibernateShowSql, env.getRequiredProperty(HibernateShowSql));
-        properties.put(HibernateDDLAuto, env.getRequiredProperty(HibernateDDLAuto));
-        properties.put(HibernateFormatSql, env.getRequiredProperty(HibernateFormatSql));
+        properties.put(HIBERNATEDIALECT, env.getRequiredProperty(HIBERNATEDIALECT));
+        properties.put(HIBERNATESHOWSQL, env.getRequiredProperty(HIBERNATESHOWSQL));
+        properties.put(HIBERNATEDDLAUTO, env.getRequiredProperty(HIBERNATEDDLAUTO));
+        properties.put(HIBERNATEFORMATSQL, env.getRequiredProperty(HIBERNATEFORMATSQL));
         return properties;
     }
 }

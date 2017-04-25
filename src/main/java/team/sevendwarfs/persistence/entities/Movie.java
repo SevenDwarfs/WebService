@@ -60,7 +60,7 @@ public class Movie implements Serializable {
             joinColumns = @JoinColumn(name = "mid"),
             inverseJoinColumns = @JoinColumn(name = "pid")
     )
-    private Set<Movie> moviers;
+    private Set<Person> moviers;
 
     public Long getId() {
         return id;
@@ -126,11 +126,11 @@ public class Movie implements Serializable {
         this.introduction = introduction;
     }
 
-    public Set<Movie> getMoviers() {
+    public Set<Person> getMoviers() {
         return moviers;
     }
 
-    public void setMoviers(Set<Movie> moviers) {
+    public void setMoviers(Set<Person> moviers) {
         this.moviers = moviers;
     }
 }

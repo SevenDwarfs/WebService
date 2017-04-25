@@ -25,10 +25,10 @@ import java.util.Set;
 @SpringBootTest(classes = SpringConfiguration.class)
 public class BussinessTest {
     @Autowired
-    DataSource dataSource;
+    private DataSource dataSource;
 
     @Autowired
-    SessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     /**
      * 测试 C3P0 数据源是否成功连接数据库
