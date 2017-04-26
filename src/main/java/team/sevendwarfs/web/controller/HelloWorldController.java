@@ -4,7 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import team.sevendwarfs.persistence.entities.Movie;
+import team.sevendwarfs.persistence.entities.Person;
+import team.sevendwarfs.persistence.service.MovieService;
 import team.sevendwarfs.persistence.service.PersonService;
+
+import java.util.List;
 
 /**
  * @ClassName: HelloWorldController.
@@ -17,6 +22,11 @@ public class HelloWorldController {
     @Autowired
     PersonService personService;
 
+    @Autowired
+    MovieService movieService;
+
+    public HelloWorldController() { super(); }
+
     /**
     * @return String "Hello World" 纯文本
     * @Description 接受 / 下的HTTP路由.
@@ -25,9 +35,4 @@ public class HelloWorldController {
     public String helloWorld() {
         return "Hello World!\n";
   }
-
-    @RequestMapping("/test")
-    public String person() {
-        return personService.findAll().toString();
-    }
 }
