@@ -2,6 +2,7 @@ package team.sevendwarfs.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team.sevendwarfs.persistence.entities.Movie;
@@ -17,7 +18,7 @@ import java.util.List;
  * @author deng
  * @date 2017年4月9日 上午11:05:40
  */
-@RestController
+@Controller
 public class HelloWorldController {
     @Autowired
     PersonService personService;
@@ -34,5 +35,10 @@ public class HelloWorldController {
     @RequestMapping("/")
     public String helloWorld() {
         return "Hello World!\n";
-  }
+    }
+
+    @RequestMapping("/person")
+    public Person person() {
+        return personService.findOne(1);
+    }
 }

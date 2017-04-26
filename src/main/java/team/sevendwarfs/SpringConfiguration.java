@@ -2,6 +2,8 @@ package team.sevendwarfs;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
@@ -11,10 +13,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -22,6 +23,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -35,6 +37,8 @@ import org.springframework.transaction.PlatformTransactionManager;
         ".controller" })
 @PropertySource({"classpath:application.properties"})
 @ComponentScan("team.sevendwarfs")
+@Import(SpringWebMvcConfigurer.class)
+//@ServletComponentScan("team.sevendwarfs.web.filter")
 public class SpringConfiguration {
     private static final String HIBERNATEDIALECT = "hibernate.dialect";
     private static final String HIBERNATESHOWSQL = "hibernate.show_sql";
@@ -131,6 +135,19 @@ public class SpringConfiguration {
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
     }
+
+    @Bean
+    public FilterRegistrationBean registerOpenEntityManagerInViewFilterBean() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        OpenEntityManagerInViewFilter filter = new OpenEntityManagerInViewFilter();
+        registrationBean.setFilter(filter);
+        List<String> urlPatterns = new ArrayList<>();
+        urlPatterns.add("/person");
+        registrationBean.setUrlPatterns(urlPatterns);
+        registrationBean.setOrder(5);
+        return registrationBean;
+    }
+
 
     private Properties hibProperties() {
         Properties properties = new Properties();
