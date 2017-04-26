@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 
 /**
 * @ClassName: SpringMvcQuickstartApplication.
@@ -20,7 +21,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class,
                                     HibernateJpaAutoConfiguration.class})
-@ComponentScan("classpath:*")
+@Import(SpringConfiguration.class)
 public class SpringMvcQuickstartApplication implements EmbeddedServletContainerCustomizer {
 
   /**

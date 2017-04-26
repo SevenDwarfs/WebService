@@ -36,7 +36,8 @@ import team.sevendwarfs.persistence.entities.Person;
  * Created by deng on 2017/4/23.
  */
 @Configurable
-@ComponentScan({ "team.sevendwarfs.persistence", "team.sevendwarfs.web.controller" })
+@ComponentScan({ "team.sevendwarfs.persistence", "team.sevendwarfs.web" +
+        ".controller" })
 @PropertySource({"classpath:application.properties"})
 public class SpringConfiguration {
     private static final String HIBERNATEDIALECT = "hibernate.dialect";
