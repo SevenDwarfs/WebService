@@ -176,4 +176,20 @@ public class Movie implements Serializable {
                 ", introduction='" + introduction + '\'' +
                 '}';
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Movie)) return false;
+
+        Movie movie = (Movie) o;
+
+        return getId().equals(movie.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
 }

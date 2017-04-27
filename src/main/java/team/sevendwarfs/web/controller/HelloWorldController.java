@@ -41,4 +41,9 @@ public class HelloWorldController {
     public Person person() {
         return personService.findOne(1);
     }
+
+    @RequestMapping("/movie")
+    public List<Movie> movieList() {
+        return movieService.findAll();
+    }
 }

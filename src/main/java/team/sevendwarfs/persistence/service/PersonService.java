@@ -2,10 +2,9 @@ package team.sevendwarfs.persistence.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import team.sevendwarfs.persistence.dao.PersonDao;
 import team.sevendwarfs.persistence.entities.Person;
+import team.sevendwarfs.persistence.repository.PersonRepository;
 
 import java.util.List;
 
@@ -13,10 +12,10 @@ import java.util.List;
  * Created by deng on 2017/4/25.
  */
 @Service
-@Transactional
+//@Transactional
 public class PersonService {
     @Autowired
-    private PersonDao dao;
+    private PersonRepository repository;
 
     /**
      * Instantiates a new Person service.
@@ -32,7 +31,7 @@ public class PersonService {
      */
 // API
     public void create(final Person entity) {
-        this.dao.create(entity);
+        this.repository.save(entity);
     }
 
     /**
@@ -42,7 +41,7 @@ public class PersonService {
      * @return the person
      */
     public Person findOne(final Integer id) {
-        return this.dao.findOne(id);
+        return this.repository.findOne(id);
     }
 
     /**
@@ -51,7 +50,7 @@ public class PersonService {
      * @return the list
      */
     public List<Person> findAll() {
-        return this.dao.findAll();
+        return this.repository.findAll();
     }
 
 }

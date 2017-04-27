@@ -36,7 +36,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 @ComponentScan({ "team.sevendwarfs.persistence", "team.sevendwarfs.web" +
         ".controller" })
 @PropertySource({"classpath:application.properties"})
-@ComponentScan("team.sevendwarfs")
 @Import(SpringWebMvcConfigurer.class)
 public class SpringConfiguration {
     private static final String HIBERNATEDIALECT = "hibernate.dialect";
