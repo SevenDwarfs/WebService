@@ -18,7 +18,7 @@ import java.util.List;
  * @author deng
  * @date 2017年4月9日 上午11:05:40
  */
-@Controller
+@RestController
 public class HelloWorldController {
     @Autowired
     PersonService personService;

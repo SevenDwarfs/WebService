@@ -38,7 +38,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 @PropertySource({"classpath:application.properties"})
 @ComponentScan("team.sevendwarfs")
 @Import(SpringWebMvcConfigurer.class)
-//@ServletComponentScan("team.sevendwarfs.web.filter")
 public class SpringConfiguration {
     private static final String HIBERNATEDIALECT = "hibernate.dialect";
     private static final String HIBERNATESHOWSQL = "hibernate.show_sql";
