@@ -68,16 +68,7 @@ public class PersistenceEntitiesTest {
     @Test
     public void hibernateMappingRelationTest() {
         Movie caribbean = session.get(Movie.class, 3);
-        List<Person> actors = caribbean.getActors();
-        for (Person person : actors) {
-            System.out.println(person);
-        }
-
-        Person depp = session.get(Person.class, 1);
-        List<Movie> movies = depp.getMoives();
-        for (Movie movie : movies) {
-            System.out.println(movie);
-        }
+        System.out.print(caribbean);
     }
 
     /**

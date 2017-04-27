@@ -2,6 +2,7 @@ package team.sevendwarfs.persistence.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -31,14 +32,6 @@ public class Person implements Serializable {
     // 表示是导演还是演员
     @Column(name = "type")
     private String type;
-
-    /**
-     * 配置双向多对多关联映射关系
-     * 由 movier 维护映射关系
-     * mappedBy: 对方对应成员变量名, targetEntity: 对方持久化类类名
-     */
-    @ManyToMany(mappedBy = "moviers", targetEntity = Movie.class)
-    private List<Movie> moives;
 
     public Integer getId() {
         return id;
@@ -70,14 +63,6 @@ public class Person implements Serializable {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public List<Movie> getMoives() {
-        return moives;
-    }
-
-    public void setMoives(List<Movie> moives) {
-        this.moives = moives;
     }
 
     @Override

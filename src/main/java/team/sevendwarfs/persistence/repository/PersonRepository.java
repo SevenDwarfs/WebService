@@ -27,5 +27,6 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
     public List<Person> findByType(String type);
 
     // 根据 人的类型和电影 查询
-    public List<Person> findByTypeAndMoivesContains(String type, Movie movie);
+    // public List<Person> findByTypeAndMoivesContains(String type, Movie
+    // movie);
 }

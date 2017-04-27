@@ -47,7 +47,7 @@ public class Movie implements Serializable {
 
     /**
      * 电影人
-     * 执行双向多对多关联映射关系
+     * 执行单向多对多关联映射关系
      * @JoinTable: name: 中间表名
      *             joinColumns: 我方在中间表的外键
      *             inverseJoinColumns: 对方在中间表的外键
@@ -59,7 +59,7 @@ public class Movie implements Serializable {
             joinColumns = @JoinColumn(name = "mid"),
             inverseJoinColumns = @JoinColumn(name = "pid")
     )
-    private List<Person> moviers;
+    private List<Person> moviers = new LinkedList<Person>();
 
     // 演员名单
     @Transient
@@ -174,9 +174,11 @@ public class Movie implements Serializable {
                 ", url='" + url + '\'' +
                 ", releaseDate=" + releaseDate +
                 ", introduction='" + introduction + '\'' +
+                ", moviers=" + moviers +
+                ", actors=" + actors +
+                ", directors=" + directors +
                 '}';
     }
-
 
     @Override
     public boolean equals(Object o) {

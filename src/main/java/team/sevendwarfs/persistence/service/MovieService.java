@@ -15,7 +15,7 @@ import java.util.List;
  * Created by deng on 2017/4/25.
  */
 @Service
-//@Transactional
+@Transactional
 public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
