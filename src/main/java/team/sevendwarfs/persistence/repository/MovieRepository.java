@@ -22,10 +22,10 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     // 查 findOne, findAll
 
     // 根据中文名字查询
-    public List<Movie> findByChineseName(String chineseName);
+    public Movie findByChineseName(String chineseName);
 
     // 根据英文名字查询
-    public List<Movie> findByEnglishName(String englishName);
+    public Movie findByEnglishName(String englishName);
 
     // 根据类型查询
     public List<Movie> findByType(String type);
@@ -35,4 +35,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
     // 根据 演员/导演 查询
     public List<Movie> findByMoviersContains(Person person);
+
+    // 查询给定日期之后的电影
+    public List<Movie> findByReleaseDateAfter(Date releaseDate);
 }

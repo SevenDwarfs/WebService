@@ -6,18 +6,24 @@ import javax.persistence.*;
  * Created by deng on 2017/4/26.
  */
 @Entity
-@Table(name = "movie")
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "user_name")
+    @Column(name = "user_name", unique = true, nullable = false)
     private String userName;
 
     @Column(name = "password_md5")
     private String passwordMD5;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "phone")
+    private String phone;
 
     public User() {}
 
@@ -42,12 +48,28 @@ public class User {
         this.userName = userName;
     }
 
-    public String getPassword() {
+    public String getPasswordMD5() {
         return passwordMD5;
     }
 
-    public void setPassword(String password) {
-        this.passwordMD5 = password;
+    public void setPasswordMD5(String passwordMD5) {
+        this.passwordMD5 = passwordMD5;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override

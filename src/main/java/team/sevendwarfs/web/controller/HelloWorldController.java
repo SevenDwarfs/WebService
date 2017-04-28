@@ -1,15 +1,10 @@
 package team.sevendwarfs.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team.sevendwarfs.persistence.entities.Movie;
-import team.sevendwarfs.persistence.entities.Person;
 import team.sevendwarfs.persistence.service.MovieService;
-import team.sevendwarfs.persistence.service.PersonService;
-
 import java.util.List;
 
 /**
@@ -21,10 +16,7 @@ import java.util.List;
 @RestController
 public class HelloWorldController {
     @Autowired
-    PersonService personService;
-
-    @Autowired
-    MovieService movieService;
+    MovieService movieServiceImpl;
 
     public HelloWorldController() { super(); }
 
@@ -37,13 +29,13 @@ public class HelloWorldController {
         return "Hello World!\n";
     }
 
-    @RequestMapping("/person")
-    public Person person() {
-        return personService.findOne(1);
-    }
+//    @RequestMapping("/person")
+//    public Person person() {
+//        return personService.findOne(1);
+//    }
 
     @RequestMapping("/movie")
     public List<Movie> movieList() {
-        return movieService.findAll();
+        return movieServiceImpl.findAll();
     }
 }

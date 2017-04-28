@@ -6,9 +6,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 
 /**
@@ -22,13 +19,13 @@ import org.springframework.context.annotation.Import;
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class,
                                     HibernateJpaAutoConfiguration.class})
 @Import(SpringConfiguration.class)
-public class SpringMvcQuickstartApplication {
+public class Application {
 
   /**
    * @Description 整个web应用的入口点.
    */
   public static void main(String[] args) {
-    SpringApplication.run(SpringMvcQuickstartApplication.class, args);
+    SpringApplication.run(Application.class, args);
   }
 
 }

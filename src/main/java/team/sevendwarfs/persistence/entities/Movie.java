@@ -1,5 +1,8 @@
 package team.sevendwarfs.persistence.entities;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -42,7 +45,7 @@ public class Movie implements Serializable {
     private Date releaseDate;
 
     // 电影简介
-    @Column(name = "introduction")
+    @Column(name = "introduction", length = 1000)
     private String introduction;
 
     /**
@@ -59,6 +62,7 @@ public class Movie implements Serializable {
             joinColumns = @JoinColumn(name = "mid"),
             inverseJoinColumns = @JoinColumn(name = "pid")
     )
+    @JsonIgnore
     private List<Person> moviers = new LinkedList<Person>();
 
     // 演员名单

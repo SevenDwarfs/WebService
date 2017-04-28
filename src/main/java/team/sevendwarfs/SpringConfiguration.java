@@ -139,9 +139,7 @@ public class SpringConfiguration {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         OpenEntityManagerInViewFilter filter = new OpenEntityManagerInViewFilter();
         registrationBean.setFilter(filter);
-        List<String> urlPatterns = new ArrayList<>();
-        urlPatterns.add("/person");
-        registrationBean.setUrlPatterns(urlPatterns);
+        registrationBean.addUrlPatterns("/*");
         registrationBean.setOrder(5);
         return registrationBean;
     }
