@@ -9,7 +9,7 @@ import team.sevendwarfs.SpringConfiguration;
 import team.sevendwarfs.Application;
 import team.sevendwarfs.persistence.entities.Movie;
 import team.sevendwarfs.persistence.service.MovieServiceImpl;
-import team.sevendwarfs.web.filter.MyOpenSessionFilter;
+//import team.sevendwarfs.web.filter.MyOpenSessionFilter;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class PersistenceServiceTest {
     MovieServiceImpl movieServiceImpl;
 
 
-    MyOpenSessionFilter myOpenSessionFilter;
+//    MyOpenSessionFilter myOpenSessionFilter;
 
 //    @Test
 //    public void personServiceTest() {
@@ -48,8 +48,8 @@ public class PersistenceServiceTest {
         }
     }
 
-    @Test
-    public void openSessionFilterTest() {
-        System.out.println(myOpenSessionFilter);
-    }
+//    @Test
+//    public void openSessionFilterTest() {
+//        System.out.println(myOpenSessionFilter);
+//    }
 }

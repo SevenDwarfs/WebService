@@ -20,11 +20,14 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     // 查 findOne, findAll
 
     // 根据用户名查询
-    public List<User> findByUserName(String userName);
+    public User findByUserName(String userName);
 
     // 根据邮箱查询
     public List<User> findByEmail(String email);
 
     // 根据电话查询
     public List<User> findByPhone(String phone);
+
+    // 查询用户个数
+    public long count();
 }

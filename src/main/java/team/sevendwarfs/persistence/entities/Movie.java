@@ -41,6 +41,7 @@ public class Movie implements Serializable {
     private String url;
 
     // 上映时间
+    @Temporal(TemporalType.DATE)
     @Column(name = "release_date")
     private Date releaseDate;
 
@@ -91,7 +92,7 @@ public class Movie implements Serializable {
                 { this.directors.add(person); }
             }
         }
-        return this.actors;
+        return this.directors;
     }
 
 
