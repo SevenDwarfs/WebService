@@ -34,6 +34,8 @@ public class LoginController {
                                   HttpServletResponse response) {
         String userName = request.getParameter("username");
         String password = request.getParameter("password");
+        if (userName == null || password == null) return "登录失败\n";
+
         if (!"".equals(userName) && !"".equals(password)) {
             User user = userService.verify(userName, password);
             if (user != null) {
