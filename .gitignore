@@ -4,6 +4,7 @@
 .idea/
 .worksheet/
 bin/
+log/
 build/
 dist/
 logs/
