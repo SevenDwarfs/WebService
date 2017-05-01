@@ -26,7 +26,7 @@ public class MyInterceptor implements HandlerInterceptor {
         User user = (User)request.getSession().getAttribute("user");
         if (null == user) {
             // 没有登录
-            response.sendRedirect("login");
+            response.sendRedirect("/login");
             flag = false;
         }
         return flag;

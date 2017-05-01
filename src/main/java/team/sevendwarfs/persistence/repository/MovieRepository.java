@@ -38,4 +38,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
     // 查询给定日期之后的电影
     public List<Movie> findByReleaseDateAfter(Date releaseDate);
+
+    // 查询日期之间的电影
+    public List<Movie> findByReleaseDateBetween(Date date1, Date date2);
 }

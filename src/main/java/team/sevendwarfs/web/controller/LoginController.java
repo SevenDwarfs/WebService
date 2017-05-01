@@ -62,21 +62,23 @@ public class LoginController {
      * 注册的 GET 方法 返回注册页面
      * @return
      */
-    @GetMapping(value = "/logup")
+    @GetMapping(value = "/signup")
     @ResponseBody
     public String logupGetMethod() {
-        return "log up now!\n";
+        return "sign up now!\n";
     }
 
     /**
      * 注册的 POST 方法
      */
-    @PostMapping(value = "/logup")
+    @PostMapping(value = "/signup")
     @ResponseBody
     public User logupPostMethod(@RequestParam(value = "username",
                                 required = true) String username,
                                 @RequestParam(value = "password",
-                                required = true) String password) {
+                                required = true) String password,
+                                HttpServletRequest request,
+                                HttpServletResponse response) {
         /**
          * 1. 查询数据库，判断该用户名是否存在
          *      - 存在，注册失败，返回注册页面
@@ -89,6 +91,7 @@ public class LoginController {
 
         User user = new User(username, Util.MD5(password));
         userService.create(user);
+        request.getSession().setAttribute("user", user);
         return user;
     }
 }

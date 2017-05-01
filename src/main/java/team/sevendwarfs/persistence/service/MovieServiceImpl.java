@@ -1,5 +1,6 @@
 package team.sevendwarfs.persistence.service;
 
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,9 +8,10 @@ import team.sevendwarfs.persistence.entities.Movie;
 import team.sevendwarfs.persistence.entities.Person;
 import team.sevendwarfs.persistence.repository.MovieRepository;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
+import static java.util.Collections.binarySearch;
+import static javafx.scene.input.KeyCode.T;
 
 /**
  * MovieService 服务类
@@ -85,5 +87,31 @@ public class MovieServiceImpl implements MovieService {
         List<Movie> movies = this.movieRepository.findAll();
 //        for (Movie movie : movies) { movie.getMoviers(); }
         return movies;
+    }
+
+    @Override
+    public List<Movie> findByType(String type, int beginIndex, int number) {
+        List<Movie> movies = movieRepository.findByType(type);
+        movies.sort(new Comparator<Movie>() {
+                        @Override
+                        public int compare(Movie o1, Movie o2) {
+                            return o1.getId() - o2.getId();
+                        }
+                    }
+        );
+
+        int size = movies.size();
+        if (size == 0) { return movies; }
+
+        int endIndex = beginIndex + number;
+        if (beginIndex >= size) { beginIndex = size - 1; }
+        if (endIndex >= size) { endIndex = size - 1; }
+
+        return movies.subList(beginIndex, endIndex);
+    }
+
+    @Override
+    public List<Movie> findByType(String type, int id) {
+        return findByType(type, id, 20);
     }
 }

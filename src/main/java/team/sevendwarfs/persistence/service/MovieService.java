@@ -42,4 +42,10 @@ public interface MovieService {
     public List<Movie> findByPerson(Person person);
     @Transactional(readOnly = true)
     public List<Movie> findAll();
+
+    @Transactional(readOnly = true)
+    public List<Movie> findByType(String type, int beginIndex, int number);
+
+    @Transactional(readOnly = true)
+    public List<Movie> findByType(String type, int id);
 }
