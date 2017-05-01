@@ -1,4 +1,5 @@
 # 订你所想 在线电影订票软件
+![logo](./src/main/resources/images/logo1.png)
 
 [![Build Status](https://travis-ci.org/zhzdeng/movie-booking.svg?branch=dev)](https://travis-ci.org/zhzdeng/movie-booking)
 
