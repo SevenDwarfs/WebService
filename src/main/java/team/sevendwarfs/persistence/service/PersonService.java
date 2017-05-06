@@ -28,7 +28,7 @@ public interface PersonService {
     @Transactional(readOnly = true)
     public Person findById(Integer id);
     @Transactional(readOnly = true)
-    public Person findByName(String name);
+    public List<Person> findByName(String name);
     @Transactional(readOnly = true)
     public List<Person> findByType(String type);
     @Transactional(readOnly = true)
