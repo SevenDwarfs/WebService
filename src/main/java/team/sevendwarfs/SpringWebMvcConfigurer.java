@@ -15,8 +15,8 @@ public class SpringWebMvcConfigurer extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         // 添加拦截规则
         // 用户排除拦截
-//        registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**")
-//                .excludePathPatterns("/login");
-        super.addInterceptors(registry);
+       // registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**")
+               // .excludePathPatterns("/login");
+        // super.addInterceptors(registry);
     }
 }
