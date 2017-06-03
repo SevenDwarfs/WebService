@@ -2,6 +2,7 @@ package team.sevendwarfs.persistence.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import team.sevendwarfs.common.Constant;
 import team.sevendwarfs.persistence.entities.Movie;
 import team.sevendwarfs.persistence.entities.Person;
 import team.sevendwarfs.persistence.repository.MovieRepository;
@@ -53,8 +54,26 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public List<Movie> findByDate(Date date) {
+    public List<Movie> findByDayDate(Date date) {
         return this.movieRepository.findByReleaseDate(date);
+    }
+
+    @Override
+    public List<Movie> findByMonthDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MONDAY, 1);
+        Date nextMonth = calendar.getTime();
+        return this.movieRepository.findByReleaseDateBetween(date, nextMonth);
+    }
+
+    @Override
+    public List<Movie> findByYearDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.YEAR, 1);
+        Date nextYear = calendar.getTime();
+        return this.movieRepository.findByReleaseDateBetween(date, nextYear);
     }
 
     @Override
@@ -107,6 +126,6 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> findByType(String type, int id) {
-        return findByType(type, id, 20);
+        return findByType(type, id, Constant.searchMovieTypeNumber);
     }
 }

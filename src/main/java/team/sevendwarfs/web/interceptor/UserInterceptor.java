@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by deng on 2017/4/26.
  */
-public class MyInterceptor implements HandlerInterceptor {
+public class UserInterceptor implements HandlerInterceptor {
 
     /**
      * 使用拦截器来判断是否登录

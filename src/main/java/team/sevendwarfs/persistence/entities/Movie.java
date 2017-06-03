@@ -73,6 +73,29 @@ public class Movie implements Serializable {
     @Transient
     private List<Person> directors;
 
+    public Movie() {}
+
+    public Movie(String chineseName, String englishName, String type, String length, String url, Date releaseDate, String introduction) {
+        this.chineseName = chineseName;
+        this.englishName = englishName;
+        this.type = type;
+        this.length = length;
+        this.url = url;
+        this.releaseDate = releaseDate;
+        this.introduction = introduction;
+    }
+
+    public Movie(String chineseName, String englishName, String type, String length, String url, Date releaseDate, String introduction, List<Person> moviers) {
+        this.chineseName = chineseName;
+        this.englishName = englishName;
+        this.type = type;
+        this.length = length;
+        this.url = url;
+        this.releaseDate = releaseDate;
+        this.introduction = introduction;
+        this.moviers = moviers;
+    }
+
     public List<Person> getActors() {
         if (this.actors == null) {
             this.actors = new LinkedList<Person>();

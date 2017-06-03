@@ -112,6 +112,7 @@ public class LoginController {
         if (user == null) {
             return new ResponseState(ResponseState.ERROR, "不可重复登出");
         } else {
+            request.removeAttribute("user");
             request.getSession().invalidate();
             return new ResponseState(ResponseState.SUCCESS);
         }

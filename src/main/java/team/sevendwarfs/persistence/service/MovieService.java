@@ -33,7 +33,11 @@ public interface MovieService {
     @Transactional(readOnly = true)
     public Movie findByEnglishName(String name);
     @Transactional(readOnly = true)
-    public List<Movie> findByDate(Date date);
+    public List<Movie> findByDayDate(Date date);
+    @Transactional(readOnly = true)
+    public List<Movie> findByMonthDate(Date date);
+    @Transactional(readOnly = true)
+    public List<Movie> findByYearDate(Date date);
     @Transactional(readOnly = true)
     public List<Movie> findDateAfter(Date date);
     @Transactional(readOnly = true)

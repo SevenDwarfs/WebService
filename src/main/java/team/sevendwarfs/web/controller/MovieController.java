@@ -8,6 +8,7 @@ import team.sevendwarfs.persistence.service.MovieService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -56,26 +57,97 @@ public class MovieController {
      * @param dateString
      * @return 电影列表
      */
-    @GetMapping("/date/{date}")
+    @GetMapping("/date/day/{date}")
     @ResponseBody
-    public List<Movie> getMovieByDate(@PathVariable("date") String dateString) {
+    public List<Movie> getMovieByDayDate(@PathVariable("date") String
+                                                   dateString) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         Date date = null;
         try {
             date = sdf.parse(dateString);
         } catch (ParseException e) {
-            return movieService.findByDate(new Date());
+            return movieService.findByDayDate(new Date());
         }
-        return movieService.findByDate(date);
+        return movieService.findByDayDate(date);
     }
 
     /**
+     * 查询给定月份上映的电影
+     * 日期格式 : 201705
+     * @param dateString
+     * @return 电影列表
+     */
+    @GetMapping("/date/month/{date}")
+    @ResponseBody
+    public List<Movie> getMovieByMonthDate(@PathVariable("date") String
+                                                   dateString) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+        Date date = null;
+        try {
+            date = sdf.parse(dateString);
+        } catch (ParseException e) {
+            return movieService.findByMonthDate(new Date());
+        }
+        return movieService.findByMonthDate(date);
+    }
+
+    /**
+     * 查询给定年份的上映电影
+     * 日期格式 : 2017
+     * @param dateString
+     * @return 电影列表
+     */
+    @GetMapping("/date/year/{date}")
+    @ResponseBody
+    public List<Movie> getMovieByYearDate(@PathVariable("date") String
+                                                   dateString) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        Date date = null;
+        try {
+            date = sdf.parse(dateString);
+        } catch (ParseException e) {
+            return movieService.findByYearDate(new Date());
+        }
+        return movieService.findByYearDate(date);
+    }
+
+
+    /**
      * 返回最近一个月上映的电影
+     * @param number 控制返回的数量
      * @return
      */
-    @GetMapping("/showing")
+    @GetMapping("/showing/{number}")
     @ResponseBody
-    public List<Movie> getMovieShowing() {
-        return movieService.findShowing();
+    public List<Movie> getMovieShowing(@PathVariable("number") Integer number) {
+        List<Movie> movies = movieService.findShowing();
+
+        if (movies.size() <= number) { return movies; }
+
+        movies.sort(new Comparator<Movie>() {
+            @Override
+            public int compare(Movie o1, Movie o2) {
+                if (o2.getReleaseDate().after(o1.getReleaseDate())) {
+                    return 1;
+                } else if (o2.getReleaseDate().equals(o1.getReleaseDate())) {
+                    return 0;
+                } else {
+                    return -1;
+                }
+            }
+        });
+
+        return movies.subList(0, number);
+    }
+
+    /**
+     * 根据电影ID查询电影
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ResponseBody
+    public Movie getMovieInfo(@PathVariable("id") Integer id) {
+        return movieService.findById(id);
     }
 }
