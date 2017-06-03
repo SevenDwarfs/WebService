@@ -26,7 +26,13 @@ public interface UserService {
 
     // 查
     @Transactional(readOnly = true)
+    public User findOne(Integer id);
+    @Transactional(readOnly = true)
     public User findByName(String name);
+    @Transactional(readOnly = true)
+    public User findByEmail(String email);
+    @Transactional(readOnly = true)
+    public User findByPhone(String phone);
     @Transactional(readOnly = true)
     public List<User> findAll();
     @Transactional(readOnly = true)

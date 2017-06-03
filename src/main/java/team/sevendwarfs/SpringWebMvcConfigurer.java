@@ -14,9 +14,9 @@ public class SpringWebMvcConfigurer extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 添加拦截规则
-        // 用户排除拦截
-       // registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**")
-               // .excludePathPatterns("/login");
-        // super.addInterceptors(registry);
+        // 只有登录过后才能访问 user/目录下资源
+        registry.addInterceptor(new MyInterceptor()).addPathPatterns
+                ("/api/user/**");
+        super.addInterceptors(registry);
     }
 }

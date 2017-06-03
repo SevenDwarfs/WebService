@@ -37,8 +37,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findOne(Integer id) {
+        return this.userRepository.findOne(id);
+    }
+
+    @Override
     public User findByName(String name) {
         return this.userRepository.findByUserName(name);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return this.userRepository.findByEmail(email);
+    }
+
+    @Override
+    public User findByPhone(String phone) {
+        return this.userRepository.findByPhone(phone);
     }
 
     @Override
@@ -52,8 +67,43 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User verify(String username, String password) {
+    public User verify(String userNorEorP, String password) {
+        User user = verifyNameAndPass(userNorEorP, password);
+
+        if (user != null) { return user; }
+
+        user = verifyEmailAndPass(userNorEorP, password);
+        if (user != null) { return user; }
+
+        user = verifyPhoneAndPass(userNorEorP, password);
+        if (user != null) { return  user; }
+
+        return null;
+    }
+
+    public User verifyNameAndPass(String username, String password) {
         User user = findByName(username);
+        if (user == null) return null;
+
+        if (user.getPasswordMD5().equals(Util.MD5(password))) {
+            return user;
+        }
+        return null;
+    }
+
+
+    public User verifyEmailAndPass(String email, String password) {
+        User user = findByEmail(email);
+        if (user == null) return null;
+
+        if (user.getPasswordMD5().equals(Util.MD5(password))) {
+            return user;
+        }
+        return null;
+    }
+
+    public User verifyPhoneAndPass(String phone, String password) {
+        User user = findByPhone(phone);
         if (user == null) return null;
 
         if (user.getPasswordMD5().equals(Util.MD5(password))) {

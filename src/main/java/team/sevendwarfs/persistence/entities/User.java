@@ -19,16 +19,19 @@ public class User {
     @Column(name = "password_md5")
     private String passwordMD5;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "phone")
+    @Column(name = "phone", unique = true, nullable = false)
     private String phone;
 
     public User() {}
 
-    public User(String name, String passwordMD5) {
+    public User(String name, String email, String phone, String
+            passwordMD5) {
         this.userName = name;
+        this.email = email;
+        this.phone = phone;
         this.passwordMD5 = passwordMD5;
     }
 
@@ -85,5 +88,16 @@ public class User {
     @Override
     public int hashCode() {
         return getId().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", passwordMD5='" + passwordMD5 + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
     }
 }
