@@ -1,17 +1,12 @@
 package team.sevendwarfs.persistence.service;
 
-import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import team.sevendwarfs.persistence.entities.Movie;
 import team.sevendwarfs.persistence.entities.Person;
 import team.sevendwarfs.persistence.repository.MovieRepository;
 
 import java.util.*;
-
-import static java.util.Collections.binarySearch;
-import static javafx.scene.input.KeyCode.T;
 
 /**
  * MovieService 服务类

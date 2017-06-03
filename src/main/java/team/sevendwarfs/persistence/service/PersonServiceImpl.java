@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team.sevendwarfs.persistence.entities.Movie;
 import team.sevendwarfs.persistence.entities.Person;
-import team.sevendwarfs.persistence.repository.MovieRepository;
 import team.sevendwarfs.persistence.repository.PersonRepository;
 
 import java.util.List;
