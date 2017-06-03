@@ -68,11 +68,18 @@ public class LoginController {
                                 HttpServletRequest request,
                                 HttpServletResponse response) {
         /**
-         * 1. 查询数据库，判断该用户名是否存在
-         *      - 存在，注册失败，返回注册页面
-         *      - 不存在
-         *        新建用户实例，插入数据库
-         *        同时添加Session，注册成功
+         * 表单格式校验
+         */
+        if (!Util.validPassword(password)) {
+            return "密码格式不正确";
+        } else if (!Util.validEmail(email)) {
+            return "邮箱格式不正确";
+        } else if (!Util.validPhone(phone)) {
+            return "邮箱格式不正确";
+        }
+
+        /**
+         * 查询是否已经注册过该用户
          */
         User exitUser = userService.findByName(username);
         if (userService.findByName(username) != null) {
@@ -83,7 +90,9 @@ public class LoginController {
             return "该手机已被注册";
         }
 
-
+        /**
+         * 用户注册
+         */
         User user = new User(username, email, phone, Util.MD5(password));
         userService.create(user);
         request.getSession().setAttribute("user", user);
@@ -92,7 +101,7 @@ public class LoginController {
         return "注册成功" + new UserModel(user).toString();
     }
 
-    @PostMapping(value = "/logout")
+    @PutMapping(value = "/logout")
     @ResponseBody
     public String logoutPostMethod(HttpServletRequest request,
                                   HttpServletResponse response) {

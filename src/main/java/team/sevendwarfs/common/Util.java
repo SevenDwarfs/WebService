@@ -3,12 +3,17 @@ package team.sevendwarfs.common;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 系统工具类
  * Created by deng on 2017/4/26.
  */
 public class Util {
+    static private String phoneRegex = "^[1][3,4,5,7,8][0-9]{9}$";
+    static private String emailRegex = "^([a-z0-9A-Z]+[-|\\\\.]?)" +
+            "+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\\\.)+[a-zA-Z]{2,}$";
     /**
      * @Description 得到 MD5 摘要值
      * @param input 输入字符串
@@ -26,5 +31,40 @@ public class Util {
             e.printStackTrace();
         }
         return result;
+    }
+
+    /**
+     * 密码要求 6-100 位
+     * @param password
+     * @return
+     */
+    static public boolean validPassword(String password) {
+        boolean flag = true;
+        int len = password.length();
+        if (len < 6 || len > 100) { flag = false; }
+
+        return flag;
+    }
+
+    /**
+     * 手机号合法性验证
+     * @param phone
+     * @return
+     */
+    static public boolean validPhone(String phone) {
+        Pattern pattern = Pattern.compile(phoneRegex); // 验证手机号
+        Matcher matcher = pattern.matcher(phone);
+        return matcher.matches();
+    }
+
+    /**
+     * 邮箱合法性验证
+     * @param email
+     * @return
+     */
+    static public boolean validEmail(String email) {
+        Pattern regex = Pattern.compile(emailRegex);
+        Matcher matcher = regex.matcher(email);
+        return matcher.matches();
     }
 }

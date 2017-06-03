@@ -63,10 +63,16 @@ public class UserController {
                             HttpServletResponse response) {
         User user = (User) request.getSession().getAttribute("user");
 
-        if (!"".equals(username)) user.setUserName(username);
-        if (!"".equals(email)) user.setEmail(email);
-        if (!"".equals(phone)) user.setPhone(phone);
-        if (!"".equals(newPassword)) {
+        if (!"".equals(username) && userService.findByName(username) == null) {
+            user.setUserName(username);
+        }
+        if (Util.validEmail(email) && userService.findByEmail(email) == null) {
+            user.setEmail(email);
+        }
+        if (Util.validPhone(phone) && userService.findByPhone(phone) == null) {
+            user.setPhone(phone);
+        }
+        if (Util.validPassword(newPassword)) {
             if (userService.findOne(user.getId()).getPasswordMD5()
                     .equals(Util.MD5(oldPassword))) {
                 user.setPasswordMD5(Util.MD5(newPassword));
