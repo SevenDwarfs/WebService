@@ -3,6 +3,7 @@ package team.sevendwarfs.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import team.sevendwarfs.common.ResponseState;
 import team.sevendwarfs.common.Util;
 import team.sevendwarfs.persistence.entities.User;
 import team.sevendwarfs.persistence.service.UserService;
@@ -31,8 +32,12 @@ public class UserController {
     @GetMapping
     @ResponseBody
     public UserModel getUserInfo(HttpServletRequest request,
-                            HttpServletResponse response) {
+                                     HttpServletResponse response) {
         User user = (User)request.getSession().getAttribute("user");
+        if (user == null) {
+            return new UserModel();
+        }
+
         return new UserModel(user);
     }
 
@@ -49,7 +54,7 @@ public class UserController {
      */
     @PutMapping
     @ResponseBody
-    public UserModel putUserInfo(@RequestParam(value = "username",
+    public ResponseState putUserInfo(@RequestParam(value = "username",
                             required = false, defaultValue="") String username,
                             @RequestParam(value = "email",
                             required = false, defaultValue="") String email,
@@ -82,6 +87,6 @@ public class UserController {
         request.getSession().setAttribute("user", user);
         userService.update(user);
 
-        return new UserModel(user);
+        return new ResponseState(ResponseState.SUCCESS);
     }
 }

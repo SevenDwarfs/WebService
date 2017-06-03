@@ -3,6 +3,7 @@ package team.sevendwarfs.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import team.sevendwarfs.common.ResponseState;
 import team.sevendwarfs.common.Util;
 import team.sevendwarfs.persistence.entities.User;
 import team.sevendwarfs.persistence.service.UserService;
@@ -33,23 +34,25 @@ public class LoginController {
      */
     @PostMapping(value = "/login")
     @ResponseBody
-    public String loginPostMethod(HttpServletRequest request,
+    public ResponseState loginPostMethod(HttpServletRequest request,
                                   HttpServletResponse response) {
         String userName = request.getParameter("username");
         String password = request.getParameter("password");
-        if (userName == null || password == null) return "登录失败\n";
+        if (userName == null || password == null) {
+            return new ResponseState(ResponseState.ERROR, "用户名或密码为空");
+        }
 
         if (!"".equals(userName) && !"".equals(password)) {
             User user = userService.verify(userName, password);
             if (user != null) {
                 request.getSession().setAttribute("user", user);
-                // TODO 这里不能返回用户信息，仅供开发时使用
-                return "登陆成功!\n" + new UserModel(user).toString();
+                return new ResponseState(ResponseState.SUCCESS);
             }
 
 
         }
-        return "登陆失败!\n";
+        return new ResponseState(ResponseState.ERROR, "用户名或密码错误");
+
     }
 
     /**
@@ -57,7 +60,7 @@ public class LoginController {
      */
     @PostMapping(value = "/signup")
     @ResponseBody
-    public String logupPostMethod(@RequestParam(value = "username",
+    public ResponseState logupPostMethod(@RequestParam(value = "username",
                                 required = true) String username,
                                 @RequestParam(value = "email",
                                 required = true) String email,
@@ -71,11 +74,11 @@ public class LoginController {
          * 表单格式校验
          */
         if (!Util.validPassword(password)) {
-            return "密码格式不正确";
+            return new ResponseState(ResponseState.ERROR, "密码格式不正确");
         } else if (!Util.validEmail(email)) {
-            return "邮箱格式不正确";
+            return new ResponseState(ResponseState.ERROR, "邮箱格式不正确");
         } else if (!Util.validPhone(phone)) {
-            return "邮箱格式不正确";
+            return new ResponseState(ResponseState.ERROR, "手机号码格式不正确");
         }
 
         /**
@@ -83,11 +86,11 @@ public class LoginController {
          */
         User exitUser = userService.findByName(username);
         if (userService.findByName(username) != null) {
-            return "该用户名已被注册";
+            return new ResponseState(ResponseState.ERROR, "用户名已被注册");
         } else if ( userService.findByEmail(email) != null) {
-            return "邮箱已被注册";
+            return new ResponseState(ResponseState.ERROR, "邮箱已被注册");
         } else if ( userService.findByPhone(phone) != null) {
-            return "该手机已被注册";
+            return new ResponseState(ResponseState.ERROR, "手机号码已被注册");
         }
 
         /**
@@ -97,21 +100,20 @@ public class LoginController {
         userService.create(user);
         request.getSession().setAttribute("user", user);
 
-        // TODO 这里开发时候写
-        return "注册成功" + new UserModel(user).toString();
+        return new ResponseState(ResponseState.SUCCESS);
     }
 
     @PutMapping(value = "/logout")
     @ResponseBody
-    public String logoutPostMethod(HttpServletRequest request,
-                                  HttpServletResponse response) {
+    public ResponseState logoutPostMethod(HttpServletRequest request,
+                                          HttpServletResponse response) {
         User user = (User)request.getSession().getAttribute("user");
 
         if (user == null) {
-            return "不可以重复登出";
+            return new ResponseState(ResponseState.ERROR, "不可重复登出");
         } else {
             request.getSession().invalidate();
-            return "登出成功";
+            return new ResponseState(ResponseState.SUCCESS);
         }
     }
 }
