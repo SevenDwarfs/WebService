@@ -1,8 +1,13 @@
 package team.sevendwarfs.common;
 
+import team.sevendwarfs.persistence.entities.Movie;
+import team.sevendwarfs.web.model.SimpMovie;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -66,5 +71,19 @@ public class Util {
         Pattern regex = Pattern.compile(emailRegex);
         Matcher matcher = regex.matcher(email);
         return matcher.matches();
+    }
+
+    /**
+     * 将movies列表封装成SimpMovie列表返回
+     * @param movies
+     * @return
+     */
+    static public List<SimpMovie> MoviesToSimpMovies(List<Movie> movies) {
+        List<SimpMovie> simpMovies = new ArrayList<>();
+
+        for (Movie movie : movies) {
+            simpMovies.add(new SimpMovie(movie));
+        }
+        return simpMovies;
     }
 }

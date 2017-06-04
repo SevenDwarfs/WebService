@@ -88,7 +88,8 @@ public class MovieServiceImpl implements MovieService {
         calendar.setTime(date);
         calendar.add(Calendar.MONTH, -1);
 
-        return this.movieRepository.findByReleaseDateAfter(calendar.getTime());
+        return this.movieRepository.findByReleaseDateBetween(calendar.getTime
+                (), date);
     }
 
     @Override
