@@ -21,15 +21,21 @@ spring-boot:run
 ```
 localhost:8080
 ```
-
-## 测试
-测试前需要在 application.properties 文件中填写自己数据库的用户名和密码，并且需要本地Mysql有 movieBooking 库
-运行 BussinessTest类 的两个测试方法，如果测试通过说明配置成功
+## 配置
+- application.properties 是主配置文件，负责切换配置文件
+  - application-dev.properties 是开发时候测试文件，连接本地数据库
+  - application-prod.properties 是生产时候测试文件，连接了云端数据库
+- 运行时，将application.properties设置为
+```
+spring.profiles.active=prod
+```
+可以直接运行。
 
 ## 更新
 - v0.0.7
   - 查询电影时返回的是电影的简要信息：名字，id，海报URL
   - 修复了查询最近上映电影的BUG
+  - 将数据库部署到云端，现在可以直接运行本程序无需修改配置
 - v0.0.6 加入管理员模块，需要以管理员身份修改数据库
 - v0.0.5 完成用户功能模块(登录，注册，修改)
 - v0.0.4 集成 c3p0 和 Hibernate
