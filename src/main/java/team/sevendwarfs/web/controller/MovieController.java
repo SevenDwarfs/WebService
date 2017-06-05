@@ -3,11 +3,14 @@ package team.sevendwarfs.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import team.sevendwarfs.common.Util;
 import team.sevendwarfs.persistence.entities.Movie;
 import team.sevendwarfs.persistence.service.MovieService;
+import team.sevendwarfs.web.model.SimpMovie;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -28,12 +31,12 @@ public class MovieController {
      */
     @GetMapping("/name/{name}")
     @ResponseBody
-    public Movie getMovieByName(@PathVariable("name") String name) {
+    public SimpMovie getMovieByName(@PathVariable("name") String name) {
         Movie movie = movieService.findByChineseName(name);
         if (movie == null) {
             movie = movieService.findByEnglishName(name);
         }
-        return movie;
+        return new SimpMovie(movie);
     }
 
     /**
@@ -44,11 +47,12 @@ public class MovieController {
      */
     @GetMapping("/type/{type}")
     @ResponseBody
-    public List<Movie> getMovieByType(@PathVariable("type") String type,
+    public List<SimpMovie> getMovieByType(@PathVariable("type") String type,
                                       @RequestParam(value = "id",
                                                     required = false,
                                               defaultValue = "0") Integer id) {
-        return movieService.findByType(type, id);
+        List<Movie> movies = movieService.findByType(type, id);
+        return Util.MoviesToSimpMovies(movies);
     }
 
     /**
@@ -59,16 +63,19 @@ public class MovieController {
      */
     @GetMapping("/date/day/{date}")
     @ResponseBody
-    public List<Movie> getMovieByDayDate(@PathVariable("date") String
+    public List<SimpMovie> getMovieByDayDate(@PathVariable("date") String
                                                    dateString) {
+        List<Movie> movies = null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         Date date = null;
         try {
             date = sdf.parse(dateString);
         } catch (ParseException e) {
-            return movieService.findByDayDate(new Date());
+            movies = movieService.findByDayDate(new Date());
         }
-        return movieService.findByDayDate(date);
+        movies = movieService.findByDayDate(date);
+
+        return Util.MoviesToSimpMovies(movies);
     }
 
     /**
@@ -79,16 +86,20 @@ public class MovieController {
      */
     @GetMapping("/date/month/{date}")
     @ResponseBody
-    public List<Movie> getMovieByMonthDate(@PathVariable("date") String
+    public List<SimpMovie> getMovieByMonthDate(@PathVariable("date") String
                                                    dateString) {
+        List<Movie> movies = null;
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
         Date date = null;
         try {
             date = sdf.parse(dateString);
         } catch (ParseException e) {
-            return movieService.findByMonthDate(new Date());
+            movies = movieService.findByMonthDate(new Date());
         }
-        return movieService.findByMonthDate(date);
+        movies = movieService.findByMonthDate(date);
+
+        return Util.MoviesToSimpMovies(movies);
     }
 
     /**
@@ -99,16 +110,20 @@ public class MovieController {
      */
     @GetMapping("/date/year/{date}")
     @ResponseBody
-    public List<Movie> getMovieByYearDate(@PathVariable("date") String
+    public List<SimpMovie> getMovieByYearDate(@PathVariable("date") String
                                                    dateString) {
+        List<Movie> movies = null;
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
         Date date = null;
         try {
             date = sdf.parse(dateString);
         } catch (ParseException e) {
-            return movieService.findByYearDate(new Date());
+            movies = movieService.findByYearDate(new Date());
         }
-        return movieService.findByYearDate(date);
+        movies = movieService.findByYearDate(date);
+
+        return Util.MoviesToSimpMovies(movies);
     }
 
 
@@ -119,10 +134,10 @@ public class MovieController {
      */
     @GetMapping("/showing/{number}")
     @ResponseBody
-    public List<Movie> getMovieShowing(@PathVariable("number") Integer number) {
+    public List<SimpMovie> getMovieShowing(@PathVariable("number") Integer number) {
         List<Movie> movies = movieService.findShowing();
 
-        if (movies.size() <= number) { return movies; }
+        if (movies.size() <= number) { return Util.MoviesToSimpMovies(movies); }
 
         movies.sort(new Comparator<Movie>() {
             @Override
@@ -137,7 +152,7 @@ public class MovieController {
             }
         });
 
-        return movies.subList(0, number);
+        return Util.MoviesToSimpMovies(movies);
     }
 
     /**

@@ -17,7 +17,7 @@ public class AdminInterceptor implements HandlerInterceptor {
         Admin admin = (Admin)request.getSession().getAttribute("admin");
         if (null == admin) {
             // 没有登录
-            response.sendRedirect("/login");
+            response.sendError(403, "管理员未登录");
             flag = false;
         }
         return flag;
