@@ -23,8 +23,8 @@ localhost:8080
 ```
 ## 配置
 - application.properties 是主配置文件，负责切换配置文件
-  - application-dev.properties 是开发时候测试文件，连接本地数据库
-  - application-prod.properties 是生产时候测试文件，连接了云端数据库
+  - application-dev.properties 是开发时候配置文件，连接本地数据库
+  - application-prod.properties 是生产时候配置文件，连接了云端数据库
 - 运行时，将application.properties设置为
 ```
 spring.profiles.active=prod

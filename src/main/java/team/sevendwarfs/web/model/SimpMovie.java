@@ -11,6 +11,8 @@ public class SimpMovie {
     private Integer id;
     private String url;
 
+    // TODO 缺一个 Score
+
     public SimpMovie() {}
 
     public SimpMovie(Movie movie) {
