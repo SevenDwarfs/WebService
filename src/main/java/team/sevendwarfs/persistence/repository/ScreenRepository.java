@@ -1,14 +1,18 @@
 package team.sevendwarfs.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import team.sevendwarfs.persistence.entities.Cinema;
 import team.sevendwarfs.persistence.entities.Screen;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by deng on 2017/6/5.
  */
+
+@Repository
 public interface ScreenRepository extends JpaRepository<Screen, Integer> {
     // 增 save
 
@@ -19,9 +23,13 @@ public interface ScreenRepository extends JpaRepository<Screen, Integer> {
     // 查 findOne, findAll
 
     // 根据名字查询
-    public Screen findByCinema(Cinema cinema);
-    public Screen findByTime(Date time);
-    public Screen findByRoom(String room);
-    public Screen findByMovieName(String movieName);
-    public Screen findByLanguage(String language);
+    public List<Screen> findByCinema(Cinema cinema);
+    public List<Screen> findByTime(Date time);
+    public List<Screen> findByRoom(String room);
+    public List<Screen> findByMovieName(String movieName);
+    public List<Screen> findByLanguage(String language);
+    public Screen findByCinemaAndTimeAndRoom(Cinema cinema, Date time, String
+            room);
+    public List<Screen> findByPrice(Double price);
+    public List<Screen> findByCinemaAndAndMovieName(Cinema cinema, String name);
 }
