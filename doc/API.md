@@ -29,20 +29,90 @@
 ## 获取电影信息
 默认返回的是电影的简要信息：只包含名字，ID，URL
 
-|              路由              |  方法  |                  说明                   |
-| :--------------------------: | :--: | :-----------------------------------: |
-|   /api/movie/name/{查询电影名}    | GET  |     返回电影名对应信息，允许查询中英文电影名，返回一条记录或空     |
-| /api/movie/type/{type}?id=ID | GET  |   返回电影类型列表, 数目为从id开始往后20条，默认id = 0    |
-| /api/movie/date/day/20170501 | GET  | 返回2017-05-01上映的电影列表，如果输入非法日期，返回当天上映列表 |
-| /api/movie/date/month/201705 | GET  |  返回2017-05上映的电影列表，如果输入非法日期，返回当月上映列表   |
-|  /api/movie/date/year/2017   | GET  |    返回2017上映的电影列表，如果输入非法日期，返回当年上映列表    |
-|       /api/movie/{id}        | GET  |            返回ID=id的电影详细信息             |
-| /api/movie/showing/{number}  | GET  |        返回最近一个月上映的电影列表,number条         |
+|              路由              |  方法  |                  说明                   |       返回值       |
+| :--------------------------: | :--: | :-----------------------------------: | :-------------: |
+|   /api/movie/name/{查询电影名}    | GET  |     返回电影名对应信息，允许查询中英文电影名，返回一条记录或空     |    SimpMovie    |
+| /api/movie/type/{type}?id=ID | GET  |   返回电影类型列表, 数目为从id开始往后20条，默认id = 0    | List<SimpMovie> |
+| /api/movie/date/day/20170501 | GET  | 返回2017-05-01上映的电影列表，如果输入非法日期，返回当天上映列表 | List<SimpMovie> |
+| /api/movie/date/month/201705 | GET  |  返回2017-05上映的电影列表，如果输入非法日期，返回当月上映列表   | List<SimpMovie> |
+|  /api/movie/date/year/2017   | GET  |    返回2017上映的电影列表，如果输入非法日期，返回当年上映列表    | List<SimpMovie> |
+|       /api/movie/{id}        | GET  |            返回ID=id的电影详细信息             |      Movie      |
+| /api/movie/showing/{number}  | GET  |        返回最近一个月上映的电影列表,number条         | List<SimpMovie> |
+
+```java
+SimpMovie {
+    private String name;
+    private Integer id;
+    private String url;
+}
+```
 
 ## 获取演员/导演信息
 
-|           路由           |  方法  |       说明       |
-| :--------------------: | :--: | :------------: |
-|    /api/person/{id}    | GET  |  通过演员/导演的ID获取  |
-| /api/person/movie/{id} | GET  | 获取电影ID的演员/导演名单 |
+|           路由           |  方法  |       说明       |     返回值      |
+| :--------------------: | :--: | :------------: | :----------: |
+|    /api/person/{id}    | GET  |  通过演员/导演的ID获取  |    Person    |
+| /api/person/movie/{id} | GET  | 获取电影ID的演员/导演名单 | List<Person> |
 
+```java
+Person {
+    private Integer id;
+    // 名字
+    private String name;
+    // 照片的URL
+    private String url;
+    // 表示是导演还是演员
+    private String type; // "actor", "director"
+}
+```
+
+## 获取影院信息
+
+没有说明默认返回影院简要信息：影院id，影院名字name
+|                路由                |  方法  |           说明           | 接受内容 |       返回值        |
+| :------------------------------: | :--: | :--------------------: | ---- | :--------------: |
+| /api/cinema?number={}&address={} | GET  | number选填默认10，address必填 |      | List<SimpCinema> |
+|         /api/cinema/{id}         | GET  |        返回影院详细信息        |      |      Cinema      |
+|       /api/cinema/showing        | GET  |   返回正在该影院上映的电影简要信息列表   |      | List<SimpMovie>  |
+
+```java
+SimpCinema {
+    private Integer id;
+    private String name;
+}
+
+Cinema {
+    private Integer id;
+    private String name;
+    private String address;
+    private String phone;
+    private List<Screen> screens;
+}
+```
+
+## 获取排片信息
+
+|                 路由                 |  方法  |        说明         | 接受内容 |      返回值      |
+| :--------------------------------: | :--: | :---------------: | :--: | :-----------: |
+| /api/screen?cinemaid={}&movieid={} | GET  | 获取对应影院对应电影的排片情况列表 |      | List<Screen>  |
+|          /api/screen/{id}          | GET  |    获取对应id的排片情况    |      |    Screen     |
+|          /api/screen/{id}          | PUT  |   锁定/购买座位，需要上传    | Seat | ResponseState |
+
+```java
+Seat {
+    private List<Integer> vacancy;
+    private List<Integer> soldOut;
+    private List<Integer> locking;
+}
+
+Screen {
+    private Integer id;
+    private Date time;
+    private String language;
+    private String room;
+    private Double price;
+    private Cinema cinema;
+    private String movieName;
+    private String seats; // '0'->空位,'1'->被锁定,'2'->已售出 8x11 列优先, 比如2行1列下标为8
+}
+```

@@ -1,7 +1,7 @@
 # 订你所想 在线电影订票软件
 ![logo](./src/main/resources/images/logo1.png)
 
-[![Build Status](https://travis-ci.org/zhzdeng/movie-booking.svg?branch=dev)](https://travis-ci.org/zhzdeng/movie-booking)
+[![Build Status](https://travis-ci.org/SevenDwarfs/Web-Service.svg?branch=dev)](https://travis-ci.org/SevenDwarfs/Web-Service)
 
 ## 构建环境
 Eclipse + Maven + Spring-boot
@@ -32,6 +32,10 @@ spring.profiles.active=prod
 可以直接运行。
 
 ## 更新
+- v0.8.0
+  - 添加了 影院 排片 功能
+- v0.0.9
+  - 添加了 logback 日志功能
 - v0.0.8
   - 添加了 演员/导演 的查询
 - v0.0.7

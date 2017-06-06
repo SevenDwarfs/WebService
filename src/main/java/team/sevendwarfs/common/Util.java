@@ -1,6 +1,8 @@
 package team.sevendwarfs.common;
 
+import team.sevendwarfs.persistence.entities.Cinema;
 import team.sevendwarfs.persistence.entities.Movie;
+import team.sevendwarfs.web.model.SimpCinema;
 import team.sevendwarfs.web.model.SimpMovie;
 
 import java.math.BigInteger;
@@ -85,5 +87,19 @@ public class Util {
             simpMovies.add(new SimpMovie(movie));
         }
         return simpMovies;
+    }
+
+    /**
+     * 将cinema列表封装成SinmCinema列表返回
+     * @param cinemas
+     * @return
+     */
+    static public List<SimpCinema> CinemaToSimpCinema(List<Cinema> cinemas) {
+        List<SimpCinema> simpCinemas = new ArrayList<>();
+
+        for (Cinema cinema : cinemas) {
+            simpCinemas.add(new SimpCinema(cinema));
+        }
+        return simpCinemas;
     }
 }
