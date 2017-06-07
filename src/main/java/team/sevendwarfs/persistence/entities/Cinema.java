@@ -1,5 +1,7 @@
 package team.sevendwarfs.persistence.entities;
 
+import team.sevendwarfs.web.model.CinemaModel;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -35,6 +37,13 @@ public class Cinema {
         this.address = address;
         this.phone = phone;
         this.screens = screens;
+    }
+
+    public Cinema(CinemaModel cinemaModel) {
+        this.name = cinemaModel.getName();
+        this.address = cinemaModel.getAddress();
+        this.phone = cinemaModel.getPhone();
+        this.screens = cinemaModel.getScreens();
     }
 
     public String getPhone() {

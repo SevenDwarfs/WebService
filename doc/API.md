@@ -17,13 +17,25 @@
 
 ## 管理员账号
 
-|         路由          |   方法   |                    说明                    |
-| :-----------------: | :----: | :--------------------------------------: |
-|  /api/admin/login   |  POST  |          adminname, password 登录          |
-|  /api/admin/logout  |  PUT   |                    登出                    |
-| /api/admin/newMovie |  POST  | 需要填写的域chineseName,englishName,pictureUrl,type,length,releaseDate,introduction |
-|   /api/admin/{id}   | DELETE |                当初对应id的电影                 |
-|   /api/admin/{id}   |  PUT   |      更新电影信息，只需要填写需要更新的域，和创建电影的域名字相同      |
+|            路由            |   方法   |                    说明                    |    提交格式     |
+| :----------------------: | :----: | :--------------------------------------: | :---------: |
+|     /api/admin/login     |  POST  |          adminname, password 登录          |             |
+|    /api/admin/logout     |  PUT   |                    登出                    |             |
+|   /api/admin/newMovie    |  POST  | 需要填写的域chineseName,englishName,pictureUrl,type,length,releaseDate,introduction |             |
+|     /api/admin/{id}      | DELETE |                当初对应id的电影                 |             |
+|     /api/admin/{id}      |  PUT   |      更新电影信息，只需要填写需要更新的域，和创建电影的域名字相同      |             |
+|  /api/admin/cinema/{id}  | DELETE |                参数对应id的影院                 |             |
+| /api/admin/cinema/create |  POST  |                  创建一个影院                  | CinemaModel |
+|  /api/admin/cinema/{id}  |  PUT   |                 修改一个影院信息                 | CinemaModel |
+
+```java
+CinemaModel {
+    private String name;
+    private String address;
+    private String phone;
+    private List<Screen> screens;
+}
+```
 
 
 ## 获取电影信息
