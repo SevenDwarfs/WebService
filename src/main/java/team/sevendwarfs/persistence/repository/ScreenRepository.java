@@ -24,12 +24,12 @@ public interface ScreenRepository extends JpaRepository<Screen, Integer> {
 
     // 根据名字查询
     public List<Screen> findByCinema(Cinema cinema);
-    public List<Screen> findByTime(Date time);
+    public List<Screen> findByShowDateAndShowTime(Date date, String time);
+    public List<Screen> findByShowDate(Date date);
+    public List<Screen> findByShowTime(String time);
     public List<Screen> findByRoom(String room);
     public List<Screen> findByMovieName(String movieName);
     public List<Screen> findByLanguage(String language);
-    public Screen findByCinemaAndTimeAndRoom(Cinema cinema, Date time, String
-            room);
     public List<Screen> findByPrice(Double price);
     public List<Screen> findByCinemaAndAndMovieName(Cinema cinema, String name);
 }

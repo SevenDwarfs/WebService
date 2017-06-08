@@ -32,7 +32,9 @@ public interface ScreenService {
     @Transactional(readOnly = true)
     public Screen findById(Integer id);
     @Transactional(readOnly = true)
-    public List<Screen> findByTime(Date time);
+    public List<Screen> findByDate(Date time);
+    @Transactional(readOnly = true)
+    public List<Screen> findByTime(String time);
     @Transactional(readOnly = true)
     public List<Screen> findByMovie(Movie movie);
     @Transactional(readOnly = true)

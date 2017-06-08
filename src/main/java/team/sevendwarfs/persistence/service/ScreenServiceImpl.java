@@ -45,8 +45,13 @@ public class ScreenServiceImpl implements ScreenService {
     }
 
     @Override
-    public List<Screen> findByTime(Date time) {
-        return screenRepository.findByTime(time);
+    public List<Screen> findByTime(String time) {
+        return screenRepository.findByShowTime(time);
+    }
+
+    @Override
+    public List<Screen> findByDate(Date time) {
+        return screenRepository.findByShowDate(time);
     }
 
     @Override
