@@ -7,13 +7,27 @@
 
 ## 用户登录/注册
 
-|     路由      |  方法  |                    说明                    |
-| :---------: | :--: | :--------------------------------------: |
-| /api/login  | POST | 提交用户登录表单 userName, password, 允许邮箱/手机/用户名登录 |
-| /api/signup | POST | 提交用户注册表单 userName, password, email, phone |
-| /api/logout | PUT  |                    登出                    |
-|  /api/user  | GET  |                 获取当前用户信息                 |
-|  /api/user  | PUT  | 修改当前用户信息，填写需要修改的项，username，email，phone，oldPassword，newPassword |
+|          路由           |  方法  |                    说明                    |            |
+| :-------------------: | :--: | :--------------------------------------: | :--------: |
+|      /api/login       | POST | 提交用户登录表单 username, password, 允许邮箱/手机/用户名登录 |            |
+|      /api/signup      | POST | 提交用户注册表单 username, password, email, phone |            |
+|      /api/logout      | PUT  |                    登出                    |            |
+|       /api/user       | GET  |                 获取当前用户信息                 |            |
+|       /api/user       | PUT  | 修改当前用户信息，填写需要修改的项，username，email，phone，oldPassword，newPassword |            |
+|    /api/user/order    | GET  |                查看该用户的所有订单                | OrderModel |
+| /api/user/screen/{id} | PUT  |           锁定/购买座位，需要上传 需要用户登录后           |  Seat 见后文  |
+
+```java
+public class OrderModel {
+	private List<FilmOrder> filmOrderModelList;
+}
+public class FilmOrder {
+    private Integer id;
+    private User user;
+    private Integer screenId;
+    private String seat;
+}
+```
 
 ## 管理员账号
 
@@ -104,11 +118,11 @@ Cinema {
 
 ## 获取排片信息
 
-|                 路由                 |  方法  |        说明         | 接受内容 |      返回值      |
-| :--------------------------------: | :--: | :---------------: | :--: | :-----------: |
-| /api/screen?cinemaid={}&movieid={} | GET  | 获取对应影院对应电影的排片情况列表 |      | List<Screen>  |
-|          /api/screen/{id}          | GET  |    获取对应id的排片情况    |      |    Screen     |
-|          /api/screen/{id}          | PUT  |   锁定/购买座位，需要上传    | Seat | ResponseState |
+|                 路由                 |  方法  |        说明         | 接受内容 |     返回值      |
+| :--------------------------------: | :--: | :---------------: | :--: | :----------: |
+| /api/screen?cinemaid={}&movieid={} | GET  | 获取对应影院对应电影的排片情况列表 |      | List<Screen> |
+|          /api/screen/{id}          | GET  |    获取对应id的排片情况    |      |    Screen    |
+
 
 ```java
 Seat {

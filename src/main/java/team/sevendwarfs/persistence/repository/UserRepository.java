@@ -4,8 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import team.sevendwarfs.persistence.entities.User;
 
-import java.util.List;
-
 /**
  * Created by deng on 2017/4/27.
  */
@@ -30,4 +28,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     // 查询用户个数
     public long count();
+
 }

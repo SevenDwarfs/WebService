@@ -55,31 +55,5 @@ public class ScreenController {
         return screenService.findById(id);
     }
 
-    /**
-     * 锁定/出售座位
-     * @param id
-     * @param seat
-     * @return
-     */
-    @PutMapping("/{id}")
-    @ResponseBody
-    public ResponseState putSeat(@PathVariable("id") Integer id,
-                                 @RequestBody Seat seat) {
-        Screen screen = screenService.findById(id);
-        StringBuffer seatBuffer = new StringBuffer(screen.getSeats());
 
-        if (SeatUtil.validSeatLock(seat, seatBuffer)) {
-            return new ResponseState(ResponseState.ERROR, "锁定座位失败,座位已经被锁定或售出");
-        };
-
-        if (SeatUtil.validSeatSold(seat, seatBuffer)) {
-            return new ResponseState(ResponseState.ERROR, "购买座位失败,座位未被锁定");
-        };
-
-        SeatUtil.changeSeatState(seat, seatBuffer);
-        screen.setSeats(new String(seatBuffer));
-        screenService.update(screen);
-
-        return new ResponseState(ResponseState.SUCCESS);
-    }
 }

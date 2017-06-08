@@ -1,6 +1,9 @@
 package team.sevendwarfs.web.model;
 
+import team.sevendwarfs.persistence.entities.FilmOrder;
 import team.sevendwarfs.persistence.entities.User;
+
+import java.util.List;
 
 /**
  * Created by deng on 2017/6/3.
@@ -12,12 +15,15 @@ public class UserModel {
 
     private String phone;
 
+    private List<FilmOrder> filmOrderList;
+
     public UserModel() {}
 
     public UserModel(User user) {
         this.userName = user.getUserName();
         this.email = user.getEmail();
         this.phone = user.getPhone();
+        this.filmOrderList = user.getFilmOrderList();
     }
 
     public UserModel(String userName, String email, String phone) {
@@ -51,6 +57,13 @@ public class UserModel {
         this.phone = phone;
     }
 
+    public List<FilmOrder> getFilmOrderList() {
+        return filmOrderList;
+    }
+
+    public void setFilmOrderList(List<FilmOrder> filmOrderList) {
+        this.filmOrderList = filmOrderList;
+    }
 
     @Override
     public String toString() {
@@ -58,6 +71,7 @@ public class UserModel {
                 "userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", filmOrderList=" + filmOrderList +
                 '}';
     }
 }

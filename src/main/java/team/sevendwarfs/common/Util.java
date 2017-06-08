@@ -19,8 +19,8 @@ import java.util.regex.Pattern;
  */
 public class Util {
     static private String phoneRegex = "^[1][3,4,5,7,8][0-9]{9}$";
-    static private String emailRegex = "^([a-z0-9A-Z]+[-|\\\\.]?)" +
-            "+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\\\.)+[a-zA-Z]{2,}$";
+    static private String emailRegex = "^[A-Za-zd]+([-_.][A-Za-zd]+)*@" +
+            "([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$";
     /**
      * @Description 得到 MD5 摘要值
      * @param input 输入字符串

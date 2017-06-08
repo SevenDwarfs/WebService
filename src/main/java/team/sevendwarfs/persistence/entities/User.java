@@ -1,6 +1,7 @@
 package team.sevendwarfs.persistence.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by deng on 2017/4/26.
@@ -25,6 +26,9 @@ public class User {
     @Column(name = "phone", unique = true, nullable = false)
     private String phone;
 
+    @OneToMany(mappedBy = "user")
+    private List<FilmOrder> filmOrderList;
+
     public User() {}
 
     public User(String name, String email, String phone, String
@@ -33,6 +37,14 @@ public class User {
         this.email = email;
         this.phone = phone;
         this.passwordMD5 = passwordMD5;
+    }
+
+    public User(String userName, String passwordMD5, String email, String phone, List<FilmOrder> filmOrderList) {
+        this.userName = userName;
+        this.passwordMD5 = passwordMD5;
+        this.email = email;
+        this.phone = phone;
+        this.filmOrderList = filmOrderList;
     }
 
     public Integer getId() {
@@ -75,6 +87,14 @@ public class User {
         this.phone = phone;
     }
 
+    public List<FilmOrder> getFilmOrderList() {
+        return filmOrderList;
+    }
+
+    public void setFilmOrderList(List<FilmOrder> filmOrderList) {
+        this.filmOrderList = filmOrderList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -98,6 +118,7 @@ public class User {
                 ", passwordMD5='" + passwordMD5 + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", filmOrderList=" + filmOrderList +
                 '}';
     }
 }
