@@ -59,6 +59,8 @@ public class UserController {
             return new OrderModel();
         }
 
+        user = userService.findOne(user.getId());
+
         return new OrderModel(user.getFilmOrderList());
     }
 

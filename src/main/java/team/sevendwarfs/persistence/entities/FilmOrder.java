@@ -1,5 +1,7 @@
 package team.sevendwarfs.persistence.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -16,6 +18,7 @@ public class FilmOrder {
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="user_id")
+    @JsonIgnore
     private User user;
 
     @Column(name = "screen_id")

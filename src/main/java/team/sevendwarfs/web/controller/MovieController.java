@@ -152,6 +152,7 @@ public class MovieController {
             }
         });
 
+        movies = movies.subList(0, number);
         return Util.MoviesToSimpMovies(movies);
     }
 

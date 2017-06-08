@@ -1,5 +1,7 @@
 package team.sevendwarfs.persistence.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,6 +38,7 @@ public class Screen {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="cinema_id")
+    @JsonIgnore
     private Cinema cinema;
 
     @Column(name = "movie_name")
