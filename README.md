@@ -1,7 +1,7 @@
 # 订你所想 在线电影订票软件
 ![logo](./src/main/resources/images/logo1.png)
 
-[![Build Status](https://travis-ci.org/SevenDwarfs/Web-Service.svg?branch=dev)](https://travis-ci.org/SevenDwarfs/Web-Service)
+[![Build Status](https://travis-ci.org/SevenDwarfs/WebService.svg?branch=dev)](https://travis-ci.org/SevenDwarfs/WebService)
 
 ## 构建环境
 Eclipse + Maven + Spring-boot
