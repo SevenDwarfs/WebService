@@ -10,8 +10,7 @@ public class SimpMovie {
     private String name;
     private Integer id;
     private String url;
-
-    // TODO 缺一个 Score
+    private String rating;
 
     public SimpMovie() {}
 
@@ -19,12 +18,14 @@ public class SimpMovie {
         this.name = movie.getChineseName();
         this.id = movie.getId();
         this.url = movie.getUrl();
+        this.rating = movie.getRating();
     }
 
-    public SimpMovie(String name, Integer id, String url) {
+    public SimpMovie(String name, Integer id, String url, String rating) {
         this.name = name;
         this.id = id;
         this.url = url;
+        this.rating = rating;
     }
 
     public String getName() {
@@ -51,12 +52,21 @@ public class SimpMovie {
         this.url = url;
     }
 
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
     @Override
     public String toString() {
         return "SimpMovie{" +
                 "name='" + name + '\'' +
                 ", id=" + id +
                 ", url='" + url + '\'' +
+                ", rating='" + rating + '\'' +
                 '}';
     }
 }

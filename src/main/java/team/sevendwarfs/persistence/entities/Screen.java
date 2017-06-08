@@ -18,9 +18,12 @@ public class Screen {
     @Column(name = "id")
     private Integer id;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "time")
-    private Date time;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "show_date")
+    private Date showDate;
+
+    @Column(name = "show_time")
+    private String showTime;
 
     @Column(name = "language")
     private String language;
@@ -44,8 +47,9 @@ public class Screen {
     public Screen() {
     }
 
-    public Screen(Date time, String language, String room, Double price, Cinema cinema, String movieName, String seats) {
-        this.time = time;
+    public Screen(Date showDate, String showTime, String language, String room, Double price, Cinema cinema, String movieName, String seats) {
+        this.showDate = showDate;
+        this.showTime = showTime;
         this.language = language;
         this.room = room;
         this.price = price;
@@ -62,12 +66,20 @@ public class Screen {
         this.id = id;
     }
 
-    public Date getTime() {
-        return time;
+    public Date getShowDate() {
+        return showDate;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setShowDate(Date showDate) {
+        this.showDate = showDate;
+    }
+
+    public String getShowTime() {
+        return showTime;
+    }
+
+    public void setShowTime(String showTime) {
+        this.showTime = showTime;
     }
 
     public String getLanguage() {
@@ -122,13 +134,14 @@ public class Screen {
     public String toString() {
         return "Screen{" +
                 "id=" + id +
-                ", time=" + time +
+                ", showDate=" + showDate +
+                ", showTime='" + showTime + '\'' +
                 ", language='" + language + '\'' +
                 ", room='" + room + '\'' +
                 ", price=" + price +
                 ", cinema=" + cinema +
                 ", movieName='" + movieName + '\'' +
-                ", seats=" + seats +
+                ", seats='" + seats + '\'' +
                 '}';
     }
 }
