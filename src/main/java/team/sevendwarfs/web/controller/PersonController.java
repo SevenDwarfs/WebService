@@ -46,6 +46,7 @@ public class PersonController {
     @ResponseBody
     public List<Person> getPersonByMovie(@PathVariable("id") Integer id) {
         Movie movie = movieService.findById(id);
-        return personService.findByMovie(movie);
+        List<Person> list = personService.findByMovie(movie);
+        return list;
     }
 }

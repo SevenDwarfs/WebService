@@ -13,8 +13,8 @@ import java.util.Set;
 @Entity
 @Table(name = "person")
 public class Person implements Serializable {
-    static final public String ACTOR = "actor";
-    static final public String DIRECTOR = "director";
+    static final public String ACTOR = "演员";
+    static final public String DIRECTOR = "导演";
 
     @Id
     @GeneratedValue

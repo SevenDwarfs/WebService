@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import team.sevendwarfs.common.Util;
 import team.sevendwarfs.persistence.entities.Movie;
 import team.sevendwarfs.persistence.service.MovieService;
+import team.sevendwarfs.web.model.MovieModel;
 import team.sevendwarfs.web.model.SimpMovie;
 
 import java.text.ParseException;
@@ -35,6 +36,10 @@ public class MovieController {
         Movie movie = movieService.findByChineseName(name);
         if (movie == null) {
             movie = movieService.findByEnglishName(name);
+        }
+
+        if (movie == null) {
+            return new SimpMovie();
         }
         return new SimpMovie(movie);
     }
@@ -71,7 +76,7 @@ public class MovieController {
         try {
             date = sdf.parse(dateString);
         } catch (ParseException e) {
-            movies = movieService.findByDayDate(new Date());
+            date = new Date();
         }
         movies = movieService.findByDayDate(date);
 
@@ -95,7 +100,7 @@ public class MovieController {
         try {
             date = sdf.parse(dateString);
         } catch (ParseException e) {
-            movies = movieService.findByMonthDate(new Date());
+            date = new Date();
         }
         movies = movieService.findByMonthDate(date);
 
@@ -119,7 +124,7 @@ public class MovieController {
         try {
             date = sdf.parse(dateString);
         } catch (ParseException e) {
-            movies = movieService.findByYearDate(new Date());
+            date = new Date();
         }
         movies = movieService.findByYearDate(date);
 
@@ -158,12 +163,19 @@ public class MovieController {
 
     /**
      * 根据电影ID查询电影
-     * @param id
+     * @param strId
      * @return
      */
     @GetMapping("/{id}")
     @ResponseBody
-    public Movie getMovieInfo(@PathVariable("id") Integer id) {
-        return movieService.findById(id);
+    public MovieModel getMovieInfo(@PathVariable("id") String strId) {
+        int id = 5;
+        try {
+            id = Integer.parseInt(strId);
+        } catch (NumberFormatException e) {
+            id = 5;
+        }
+        MovieModel movieModel = new MovieModel(movieService.findById(id));
+        return movieModel;
     }
 }

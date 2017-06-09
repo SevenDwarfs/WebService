@@ -12,7 +12,10 @@ public class SimpMovie {
     private String url;
     private String rating;
 
-    public SimpMovie() {}
+    public SimpMovie() {
+        this.name = "该电影不存在";
+        this.id = -1;
+    }
 
     public SimpMovie(Movie movie) {
         this.name = movie.getChineseName();

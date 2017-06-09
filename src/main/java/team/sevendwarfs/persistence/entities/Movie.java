@@ -82,13 +82,6 @@ public class Movie implements Serializable {
     @OneToMany(mappedBy = "movie")
     private List<MoviePicture> pictures;
 
-    // 演员名单
-    @Transient
-    private List<Person> actors;
-
-    @Transient
-    private List<Person> directors;
-
     public Movie() {}
 
     public Movie(String chineseName, String englishName, String type, String length, String url, Date releaseDate, String introduction) {
@@ -125,8 +118,7 @@ public class Movie implements Serializable {
         this.introduction = introduction;
         this.moviers = moviers;
         this.pictures = pictures;
-        this.actors = actors;
-        this.directors = directors;
+
     }
 
     public String getRating() {
@@ -160,37 +152,6 @@ public class Movie implements Serializable {
     public void setPictures(List<MoviePicture> pictures) {
         this.pictures = pictures;
     }
-
-    public void setActors(List<Person> actors) {
-        this.actors = actors;
-    }
-
-    public void setDirectors(List<Person> directors) {
-        this.directors = directors;
-    }
-
-    public List<Person> getActors() {
-        if (this.actors == null) {
-            this.actors = new LinkedList<Person>();
-            for (Person person : this.moviers) {
-                if (Person.ACTOR.equals(person.getType()))
-                { this.actors.add(person); }
-            }
-        }
-        return this.actors;
-    }
-
-    public List<Person> getDirectors() {
-        if (this.directors == null) {
-            this.directors = new LinkedList<Person>();
-            for (Person person : this.moviers) {
-                if (Person.DIRECTOR.equals(person.getType()))
-                { this.directors.add(person); }
-            }
-        }
-        return this.directors;
-    }
-
 
     public Integer getId() {
         return id;
@@ -280,8 +241,6 @@ public class Movie implements Serializable {
                 ", introduction='" + introduction + '\'' +
                 ", moviers=" + moviers +
                 ", pictures=" + pictures +
-                ", actors=" + actors +
-                ", directors=" + directors +
                 '}';
     }
 

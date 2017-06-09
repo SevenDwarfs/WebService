@@ -57,7 +57,8 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<Person> findByMovie(Movie movie) {
-        return movieService.findByChineseName(movie.getChineseName()).getMoviers();
+        movie = movieService.findById(movie.getId());
+        return movie.getMoviers();
     }
 
     @Override
