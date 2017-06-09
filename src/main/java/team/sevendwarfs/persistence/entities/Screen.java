@@ -14,7 +14,7 @@ import java.util.Date;
 @Table(name = "screen")
 public class Screen {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.TABLE)
     @Column(name = "id")
     private Integer id;
 

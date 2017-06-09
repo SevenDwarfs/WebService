@@ -5,16 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import team.sevendwarfs.common.Util;
 import team.sevendwarfs.persistence.entities.Movie;
-import team.sevendwarfs.persistence.entities.MoviePicture;
 import team.sevendwarfs.persistence.service.MovieService;
 import team.sevendwarfs.web.model.SimpMovie;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by deng on 2017/5/1.
@@ -180,6 +176,71 @@ public class MovieController {
     }
 
 
-//    @GetMapping("/query")
-//    @ResponseBody
+    @GetMapping("/query")
+    @ResponseBody
+    public List<SimpMovie> getQueryMovie(@RequestParam(value="type")
+                                                     String type,
+                                         @RequestParam(value="area")
+                                         String area,
+                                         @RequestParam(value="year")
+                                         String yearStr,
+                                         @RequestParam(value="page")
+                                         String pageStr,
+                                         @RequestParam(value="step")
+                                         String stepStr) {
+        int page = 0;
+        int step = 0;
+        int year = 0;
+        try {
+            page = Integer.parseInt(pageStr);
+            step = Integer.parseInt(stepStr);
+            year = Integer.parseInt(yearStr);
+        } catch (NumberFormatException e) {
+            return new ArrayList<SimpMovie>();
+        }
+
+        List<Movie> movieList = movieService.findByTypeAndCountry(type, area);
+
+        Iterator<Movie> it = movieList.iterator();
+        while (it.hasNext()) {
+            Movie movie = it.next();
+            if (movie.getReleaseDate() == null || movie.getReleaseDate()
+                    .getYear() != year) {
+                it.remove();
+            }
+        }
+
+        int len = movieList.size();
+        int beginIndex = page * step;
+        int endIndex = (beginIndex + step) > len ? len : (beginIndex + step);
+
+        return Util.MoviesToSimpMovies(movieList.subList(beginIndex, endIndex));
+    }
+
+    @GetMapping("/query/count")
+    @ResponseBody
+    public Integer getMovieCount(@RequestParam(value="type") String type,
+                                 @RequestParam(value="area") String area,
+                                 @RequestParam(value="year") String yearStr) {
+        int year = 0;
+        try {
+            year = Integer.parseInt(yearStr);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+
+        List<Movie> movieList = movieService.findByTypeAndCountry(type, area);
+
+        Iterator<Movie> it = movieList.iterator();
+        while (it.hasNext()) {
+            Movie movie = it.next();
+            if (movie.getReleaseDate() == null || movie.getReleaseDate()
+                    .getYear() != year) {
+                it.remove();
+            }
+        }
+
+        return movieList.size();
+    }
+
 }

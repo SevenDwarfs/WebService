@@ -41,4 +41,8 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
     // 查询日期之间的电影
     List<Movie> findByReleaseDateBetween(Date date1, Date date2);
+
+    List<Movie> findByTypeAndCountry(String type, String country);
+
+    List<Movie> findByCountry(String country);
 }

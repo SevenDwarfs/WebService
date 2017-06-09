@@ -62,7 +62,7 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> findByMonthDate(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(Calendar.MONDAY, 1);
+        calendar.add(Calendar.MONTH, 1);
         Date nextMonth = calendar.getTime();
         return this.movieRepository.findByReleaseDateBetween(date, nextMonth);
     }
@@ -79,6 +79,19 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<Movie> findDateAfter(Date date) {
         return this.movieRepository.findByReleaseDateAfter(date);
+    }
+
+    @Override
+    public List<Movie> findByTypeAndCountry(String type, String country) {
+        if (!"all".equals(type)&&!"all".equals(country)) {
+            return this.movieRepository.findByTypeAndCountry(type, country);
+        } else if ("all".equals(type) && "all".equals(country)) {
+            return this.movieRepository.findAll();
+        } else if ("all".equals(type)) {
+            return this.movieRepository.findByCountry(country);
+        } else  {
+            return this.movieRepository.findByType(type);
+        }
     }
 
     @Override

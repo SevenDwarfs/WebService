@@ -1,5 +1,7 @@
 package team.sevendwarfs.common;
 
+import static strman.Strman.repeat;
+
 /**
  * Created by deng on 2017/6/3.
  */
@@ -23,4 +25,6 @@ public class Constant {
     public static Integer FREE = 0;
     public static Integer LOCK = 1;
     public static Integer SOLD = 2;
+
+    static  public String vacancySeat = repeat("0", searchMovieTypeNumber);
 }

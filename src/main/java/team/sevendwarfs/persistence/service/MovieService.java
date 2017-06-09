@@ -52,4 +52,7 @@ public interface MovieService {
 
     @Transactional(readOnly = true)
     List<Movie> findByType(String type, int id);
+    @Transactional(readOnly = true)
+    List<Movie> findByTypeAndCountry(String type, String country);
+
 }

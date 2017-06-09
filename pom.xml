@@ -53,6 +53,13 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.41</version>
         </dependency>
+
+        <!-- String thrid package -->
+        <dependency>
+            <groupId>com.shekhargulati</groupId>
+            <artifactId>strman</artifactId>
+            <version>0.3.0</version>
+        </dependency>
     </dependencies>
 
    <!-- Package as an executable jar -->
