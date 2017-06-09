@@ -80,7 +80,7 @@ public class Movie implements Serializable {
 
     // 海报图集
     @OneToMany(mappedBy = "movie")
-    private List<MoviePicture> pictures;
+    private List<MoviePicture> pictures = new LinkedList<>();
 
     // 演员名单
     @Transient

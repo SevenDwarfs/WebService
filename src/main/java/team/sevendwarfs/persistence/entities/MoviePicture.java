@@ -17,7 +17,7 @@ public class MoviePicture implements Serializable {
     private String url;
 
     @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="movie_id")
+    @JoinColumn(name="mid")
     @JsonIgnore
     private Movie movie;
 

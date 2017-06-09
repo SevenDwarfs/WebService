@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import team.sevendwarfs.common.Util;
 import team.sevendwarfs.persistence.entities.Movie;
+import team.sevendwarfs.persistence.entities.MoviePicture;
 import team.sevendwarfs.persistence.service.MovieService;
 import team.sevendwarfs.web.model.SimpMovie;
 
@@ -174,6 +175,11 @@ public class MovieController {
         } catch (NumberFormatException e) {
             return null;
         }
-        return movieService.findById(id);
+        Movie movie = movieService.findById(id);
+        return movie;
     }
+
+
+//    @GetMapping("/query")
+//    @ResponseBody
 }
