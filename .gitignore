@@ -4,6 +4,7 @@
 .idea/
 .worksheet/
 bin/
+log/
 build/
 dist/
 logs/
@@ -11,6 +12,7 @@ node_modules/
 out/
 target/
 tmp/
+reports/
 
 # files
 *.iml
