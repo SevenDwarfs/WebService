@@ -2,8 +2,6 @@ package team.sevendwarfs;
 
 import java.beans.PropertyVetoException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
@@ -14,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;

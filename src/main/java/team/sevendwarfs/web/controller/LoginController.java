@@ -7,11 +7,9 @@ import team.sevendwarfs.common.ResponseState;
 import team.sevendwarfs.common.Util;
 import team.sevendwarfs.persistence.entities.User;
 import team.sevendwarfs.persistence.service.UserService;
-import team.sevendwarfs.web.model.UserModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * Created by deng on 2017/4/26.
@@ -84,7 +82,6 @@ public class LoginController {
         /**
          * 查询是否已经注册过该用户
          */
-        User exitUser = userService.findByName(username);
         if (userService.findByName(username) != null) {
             return new ResponseState(ResponseState.ERROR, "用户名已被注册");
         } else if ( userService.findByEmail(email) != null) {

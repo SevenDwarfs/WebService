@@ -3,15 +3,12 @@ package team.sevendwarfs.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import team.sevendwarfs.common.ResponseState;
-import team.sevendwarfs.common.SeatUtil;
 import team.sevendwarfs.persistence.entities.Cinema;
 import team.sevendwarfs.persistence.entities.Movie;
 import team.sevendwarfs.persistence.entities.Screen;
 import team.sevendwarfs.persistence.service.CinemaService;
 import team.sevendwarfs.persistence.service.MovieService;
 import team.sevendwarfs.persistence.service.ScreenService;
-import team.sevendwarfs.web.model.Seat;
 
 import java.util.List;
 

@@ -13,43 +13,43 @@ import java.util.List;
 public interface MovieService {
     // 增
     @Transactional
-    public void create(Movie movie);
+    void create(Movie movie);
 
     // 删
     @Transactional
-    public void delete(Integer id);
+    void delete(Integer id);
     @Transactional
-    public void delete(Movie movie);
+    void delete(Movie movie);
 
     // 改
     @Transactional
-    public Movie update(Movie movie);
+    Movie update(Movie movie);
 
     // 查
     @Transactional(readOnly = true)
-    public Movie findById(Integer id);
+    Movie findById(Integer id);
     @Transactional(readOnly = true)
-    public Movie findByChineseName(String name);
+    Movie findByChineseName(String name);
     @Transactional(readOnly = true)
-    public Movie findByEnglishName(String name);
+    Movie findByEnglishName(String name);
     @Transactional(readOnly = true)
-    public List<Movie> findByDayDate(Date date);
+    List<Movie> findByDayDate(Date date);
     @Transactional(readOnly = true)
-    public List<Movie> findByMonthDate(Date date);
+    List<Movie> findByMonthDate(Date date);
     @Transactional(readOnly = true)
-    public List<Movie> findByYearDate(Date date);
+    List<Movie> findByYearDate(Date date);
     @Transactional(readOnly = true)
-    public List<Movie> findDateAfter(Date date);
+    List<Movie> findDateAfter(Date date);
     @Transactional(readOnly = true)
-    public List<Movie> findShowing();
+    List<Movie> findShowing();
     @Transactional(readOnly = true)
-    public List<Movie> findByPerson(Person person);
+    List<Movie> findByPerson(Person person);
     @Transactional(readOnly = true)
-    public List<Movie> findAll();
+    List<Movie> findAll();
 
     @Transactional(readOnly = true)
-    public List<Movie> findByType(String type, int beginIndex, int number);
+    List<Movie> findByType(String type, int beginIndex, int number);
 
     @Transactional(readOnly = true)
-    public List<Movie> findByType(String type, int id);
+    List<Movie> findByType(String type, int id);
 }

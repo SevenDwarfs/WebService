@@ -22,10 +22,10 @@ public interface CinemaRepository extends JpaRepository<Cinema, Integer> {
     // 查 findOne, findAll
 
     // 根据名字查询
-    public Cinema findByName(String name);
-    public List<Cinema> findByNameContaining(String name);
-    public Cinema findByPhone(String phone);
-    public Cinema findByAddress(String address);
-    public List<Cinema> findByAddressContaining(String address);
-    public List<Cinema> findByScreens(Screen screen);
+    Cinema findByName(String name);
+    List<Cinema> findByNameContaining(String name);
+    Cinema findByPhone(String phone);
+    Cinema findByAddress(String address);
+    List<Cinema> findByAddressContaining(String address);
+    List<Cinema> findByScreens(Screen screen);
 }

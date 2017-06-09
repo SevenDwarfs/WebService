@@ -27,7 +27,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void delete(Integer id) {
-        personRepository.delete(id);;
+        personRepository.delete(id);
     }
 
     @Override

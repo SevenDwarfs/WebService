@@ -1,9 +1,7 @@
 package team.sevendwarfs.web.model;
 
-import team.sevendwarfs.persistence.entities.FilmOrder;
 import team.sevendwarfs.persistence.entities.User;
 
-import java.util.List;
 
 /**
  * Created by deng on 2017/6/3.

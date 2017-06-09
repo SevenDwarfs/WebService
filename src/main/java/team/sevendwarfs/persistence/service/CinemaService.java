@@ -12,29 +12,29 @@ import java.util.List;
 public interface CinemaService {
     // 增
     @Transactional
-    public void create(Cinema cinema);
+    void create(Cinema cinema);
 
     // 删
     @Transactional
-    public void delete(Integer id);
+    void delete(Integer id);
     @Transactional
-    public void delete(Cinema cinema);
+    void delete(Cinema cinema);
 
     // 改
     @Transactional
-    public Cinema update(Cinema cinema);
+    Cinema update(Cinema cinema);
 
     // 查
     @Transactional(readOnly = true)
-    public Cinema findById(Integer id);
+    Cinema findById(Integer id);
     @Transactional(readOnly = true)
-    public Cinema findByName(String name);
+    Cinema findByName(String name);
     @Transactional(readOnly = true)
-    public List<Cinema> findByAddress(String address);
+    List<Cinema> findByAddress(String address);
     @Transactional(readOnly = true)
-    public List<Cinema> findByMovie(Movie movie);
+    List<Cinema> findByMovie(Movie movie);
     @Transactional(readOnly = true)
-    public Cinema findByPhone(String phone);
+    Cinema findByPhone(String phone);
     @Transactional
-    public List<Cinema> findAll();
+    List<Cinema> findAll();
 }

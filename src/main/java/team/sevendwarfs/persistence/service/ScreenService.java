@@ -16,29 +16,29 @@ import java.util.List;
 public interface ScreenService {
     // 增
     @Transactional
-    public void create(Screen screen);
+    void create(Screen screen);
 
     // 删
     @Transactional
-    public void delete(Integer id);
+    void delete(Integer id);
     @Transactional
-    public void delete(Screen screen);
+    void delete(Screen screen);
 
     // 改
     @Transactional
-    public Screen update(Screen screen);
+    Screen update(Screen screen);
 
     // 查
     @Transactional(readOnly = true)
-    public Screen findById(Integer id);
+    Screen findById(Integer id);
     @Transactional(readOnly = true)
-    public List<Screen> findByDate(Date time);
+    List<Screen> findByDate(Date time);
     @Transactional(readOnly = true)
-    public List<Screen> findByTime(String time);
+    List<Screen> findByTime(String time);
     @Transactional(readOnly = true)
-    public List<Screen> findByMovie(Movie movie);
+    List<Screen> findByMovie(Movie movie);
     @Transactional(readOnly = true)
-    public List<Screen> findByCinemaAndMovie(Cinema cinema, Movie movie);
+    List<Screen> findByCinemaAndMovie(Cinema cinema, Movie movie);
     @Transactional
-    public List<Screen> findAll();
+    List<Screen> findAll();
 }

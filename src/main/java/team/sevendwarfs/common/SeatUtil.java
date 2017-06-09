@@ -1,6 +1,5 @@
 package team.sevendwarfs.common;
 
-import org.apache.tomcat.util.bcel.Const;
 import team.sevendwarfs.web.model.Seat;
 
 import java.util.List;

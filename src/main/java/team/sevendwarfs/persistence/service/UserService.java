@@ -11,32 +11,32 @@ import java.util.List;
 public interface UserService {
     // 增
     @Transactional
-    public void create(User user);
+    void create(User user);
 
     // 删
     @Transactional
-    public void delete(User user);
+    void delete(User user);
     @Transactional
-    public void delete(Integer id);
+    void delete(Integer id);
 
     // 改
     @Transactional
-    public User update(User user);
+    User update(User user);
 
 
     // 查
     @Transactional(readOnly = true)
-    public User findOne(Integer id);
+    User findOne(Integer id);
     @Transactional(readOnly = true)
-    public User findByName(String name);
+    User findByName(String name);
     @Transactional(readOnly = true)
-    public User findByEmail(String email);
+    User findByEmail(String email);
     @Transactional(readOnly = true)
-    public User findByPhone(String phone);
+    User findByPhone(String phone);
     @Transactional(readOnly = true)
-    public List<User> findAll();
+    List<User> findAll();
     @Transactional(readOnly = true)
-    public Long count();
+    Long count();
 
     /**
      * 验证成功返回用户实例，失败返回 null
@@ -45,5 +45,5 @@ public interface UserService {
      * @return
      */
     @Transactional(readOnly = true)
-    public User verify(String username, String password);
+    User verify(String username, String password);
 }

@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import team.sevendwarfs.common.Util;
 import team.sevendwarfs.persistence.entities.Movie;
 import team.sevendwarfs.persistence.service.MovieService;
-import team.sevendwarfs.web.model.MovieModel;
 import team.sevendwarfs.web.model.SimpMovie;
 
 import java.text.ParseException;
@@ -76,7 +75,7 @@ public class MovieController {
         try {
             date = sdf.parse(dateString);
         } catch (ParseException e) {
-            date = new Date();
+            return new ArrayList<>();
         }
         movies = movieService.findByDayDate(date);
 
@@ -100,7 +99,7 @@ public class MovieController {
         try {
             date = sdf.parse(dateString);
         } catch (ParseException e) {
-            date = new Date();
+            return new ArrayList<>();
         }
         movies = movieService.findByMonthDate(date);
 
@@ -124,7 +123,7 @@ public class MovieController {
         try {
             date = sdf.parse(dateString);
         } catch (ParseException e) {
-            date = new Date();
+            return new ArrayList<>();
         }
         movies = movieService.findByYearDate(date);
 
@@ -168,14 +167,13 @@ public class MovieController {
      */
     @GetMapping("/{id}")
     @ResponseBody
-    public MovieModel getMovieInfo(@PathVariable("id") String strId) {
+    public Movie getMovieInfo(@PathVariable("id") String strId) {
         int id = 5;
         try {
             id = Integer.parseInt(strId);
         } catch (NumberFormatException e) {
-            id = 5;
+            return null;
         }
-        MovieModel movieModel = new MovieModel(movieService.findById(id));
-        return movieModel;
+        return movieService.findById(id);
     }
 }

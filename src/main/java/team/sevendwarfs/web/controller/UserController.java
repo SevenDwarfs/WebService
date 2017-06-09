@@ -101,8 +101,8 @@ public class UserController {
             user.setPhone(phone);
         }
         if (Util.validPassword(newPassword)) {
-            if (userService.findOne(user.getId()).getPasswordMD5()
-                    .equals(Util.MD5(oldPassword))) {
+            String passMD5 = userService.findOne(user.getId()).getPasswordMD5();
+            if (passMD5.equals(Util.MD5(oldPassword))) {
                 user.setPasswordMD5(Util.MD5(newPassword));
             }
         }
@@ -135,11 +135,11 @@ public class UserController {
 
         if (SeatUtil.validSeatLock(seat, seatBuffer)) {
             return new ResponseState(ResponseState.ERROR, "锁定座位失败,座位已经被锁定或售出");
-        };
+        }
 
         if (SeatUtil.validSeatSold(seat, seatBuffer)) {
             return new ResponseState(ResponseState.ERROR, "购买座位失败,座位未被锁定");
-        };
+        }
 
         /**
          * 更改场次的座位信息

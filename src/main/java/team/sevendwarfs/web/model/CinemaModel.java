@@ -2,8 +2,6 @@ package team.sevendwarfs.web.model;
 
 import team.sevendwarfs.persistence.entities.Screen;
 
-import javax.persistence.Column;
-import javax.persistence.OneToMany;
 import java.util.List;
 
 /**

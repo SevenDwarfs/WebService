@@ -23,13 +23,13 @@ public interface ScreenRepository extends JpaRepository<Screen, Integer> {
     // 查 findOne, findAll
 
     // 根据名字查询
-    public List<Screen> findByCinema(Cinema cinema);
-    public List<Screen> findByShowDateAndShowTime(Date date, String time);
-    public List<Screen> findByShowDate(Date date);
-    public List<Screen> findByShowTime(String time);
-    public List<Screen> findByRoom(String room);
-    public List<Screen> findByMovieName(String movieName);
-    public List<Screen> findByLanguage(String language);
-    public List<Screen> findByPrice(Double price);
-    public List<Screen> findByCinemaAndAndMovieName(Cinema cinema, String name);
+    List<Screen> findByCinema(Cinema cinema);
+    List<Screen> findByShowDateAndShowTime(Date date, String time);
+    List<Screen> findByShowDate(Date date);
+    List<Screen> findByShowTime(String time);
+    List<Screen> findByRoom(String room);
+    List<Screen> findByMovieName(String movieName);
+    List<Screen> findByLanguage(String language);
+    List<Screen> findByPrice(Double price);
+    List<Screen> findByCinemaAndAndMovieName(Cinema cinema, String name);
 }

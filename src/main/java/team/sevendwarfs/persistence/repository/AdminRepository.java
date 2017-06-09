@@ -16,14 +16,14 @@ public interface AdminRepository extends JpaRepository<Admin, Integer>  {
     // 查 findOne, findAll
 
     // 根据用户名查询
-    public Admin findByAdminName(String userName);
+    Admin findByAdminName(String userName);
 
     // 根据邮箱查询
-    public Admin findByEmail(String email);
+    Admin findByEmail(String email);
 
     // 根据电话查询
-    public Admin findByPhone(String phone);
+    Admin findByPhone(String phone);
 
     // 查询用户个数
-    public long count();
+    long count();
 }
