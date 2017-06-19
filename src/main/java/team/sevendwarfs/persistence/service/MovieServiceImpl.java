@@ -84,7 +84,7 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<Movie> findByTypeAndCountry(String type, String country) {
         if (!"all".equals(type)&&!"all".equals(country)) {
-            return this.movieRepository.findByTypeAndCountry(type, country);
+            return this.movieRepository.findByTypeAndCountryContaining(type, country);
         } else if ("all".equals(type) && "all".equals(country)) {
             return this.movieRepository.findAll();
         } else if ("all".equals(type)) {
