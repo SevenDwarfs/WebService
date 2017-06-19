@@ -142,4 +142,17 @@ public class MovieServiceImpl implements MovieService {
     public List<Movie> findByType(String type, int id) {
         return findByType(type, id, Constant.searchMovieTypeNumber);
     }
+
+    @Override
+    public void filterMovieByYear(List<Movie> movieList, int year) {
+        Iterator<Movie> it = movieList.iterator();
+        Calendar calendar = Calendar.getInstance();
+        while (it.hasNext()) {
+            Movie movie = it.next();
+            if (movie.getReleaseDate() == null) { it.remove(); continue; }
+            calendar.setTime(movie.getReleaseDate());
+            if (calendar.get(Calendar.YEAR) != year) {it.remove(); continue; }
+        }
+
+    }
 }

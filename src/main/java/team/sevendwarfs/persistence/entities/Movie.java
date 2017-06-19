@@ -264,26 +264,6 @@ public class Movie implements Serializable {
         this.moviers = moviers;
     }
 
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "id=" + id +
-                ", chineseName='" + chineseName + '\'' +
-                ", englishName='" + englishName + '\'' +
-                ", type='" + type + '\'' +
-                ", length='" + length + '\'' +
-                ", url='" + url + '\'' +
-                ", releaseDate=" + releaseDate +
-                ", rating='" + rating + '\'' +
-                ", country='" + country + '\'' +
-                ", showPlace='" + showPlace + '\'' +
-                ", introduction='" + introduction + '\'' +
-                ", moviers=" + moviers +
-                ", pictures=" + pictures +
-                ", actors=" + actors +
-                ", directors=" + directors +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {

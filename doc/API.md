@@ -64,8 +64,8 @@ CinemaModel {
 |        /api/movie/date/year/2017         | GET  |    返回2017上映的电影列表，如果输入非法日期，返回当年上映列表    | List<SimpMovie> |  OK  |
 |             /api/movie/{id}              | GET  |            返回ID=id的电影详细信息             |      Movie      |  OK  |
 |       /api/movie/showing/{number}        | GET  |        返回最近一个月上映的电影列表,number条         | List<SimpMovie> |  OK  |
-| /api/movie/query/count?type={}&area={}&year={} | GET  |               year=2007               |     Integer     |      |
-| /api/movie/query?type={}&area={}&year={}&page={}&step={} | GET  |  返回 [page\*stap, page\*step+step]的数据  | List<SimpMovie> |      |
+| /api/movie/query/count?type={}&area={}&year={} | GET  |               year=2007               |     Integer     |  OK  |
+| /api/movie/query?type={}&area={}&year={}&page={}&step={} | GET  |  返回 [page\*stap, page\*step+step]的数据  | List<SimpMovie> |  OK  |
 
 ```java
 SimpMovie {
@@ -120,10 +120,10 @@ Cinema {
 
 ## 获取排片信息
 
-|                 路由                 |  方法  |        说明         | 接受内容 |     返回值      |  测试  |
-| :--------------------------------: | :--: | :---------------: | :--: | :----------: | :--: |
-| /api/screen?cinemaid={}&movieid={} | GET  | 获取对应影院对应电影的排片情况列表 |      | List<Screen> |  OK  |
-|          /api/screen/{id}          | GET  |    获取对应id的排片情况    |      |    Screen    |  OK  |
+|                    路由                    |  方法  |        说明         | 接受内容 |     返回值      |  测试  |
+| :--------------------------------------: | :--: | :---------------: | :--: | :----------: | :--: |
+| /api/screen?cinemaid={}&movieid={}&date={}&time={} | GET  | 获取对应影院对应电影的排片情况列表 |      | List<Screen> |  OK  |
+|             /api/screen/{id}             | GET  |    获取对应id的排片情况    |      |    Screen    |  OK  |
 
 
 ```java

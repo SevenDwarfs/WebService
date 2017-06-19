@@ -55,4 +55,6 @@ public interface MovieService {
     @Transactional(readOnly = true)
     List<Movie> findByTypeAndCountry(String type, String country);
 
+
+    void filterMovieByYear(List<Movie> movieList, int year);
 }

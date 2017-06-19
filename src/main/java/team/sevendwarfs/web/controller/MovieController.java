@@ -201,14 +201,8 @@ public class MovieController {
 
         List<Movie> movieList = movieService.findByTypeAndCountry(type, area);
 
-        Iterator<Movie> it = movieList.iterator();
-        while (it.hasNext()) {
-            Movie movie = it.next();
-            if (movie.getReleaseDate() == null || movie.getReleaseDate()
-                    .getYear() != year) {
-                it.remove();
-            }
-        }
+        movieService.filterMovieByYear(movieList, year);
+
 
         int len = movieList.size();
         int beginIndex = page * step;
@@ -231,14 +225,8 @@ public class MovieController {
 
         List<Movie> movieList = movieService.findByTypeAndCountry(type, area);
 
-        Iterator<Movie> it = movieList.iterator();
-        while (it.hasNext()) {
-            Movie movie = it.next();
-            if (movie.getReleaseDate() == null || movie.getReleaseDate()
-                    .getYear() != year) {
-                it.remove();
-            }
-        }
+        movieService.filterMovieByYear(movieList, year);
+
 
         return movieList.size();
     }

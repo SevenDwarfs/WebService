@@ -11,6 +11,7 @@ public class Constant {
      */
     static public Integer searchMovieTypeNumber = 20;
 
+    static public Integer seatsNumber = 11 * 8;
     /**
      * 座位的最大行列数
      * 在SeatUtil中用到
@@ -26,5 +27,5 @@ public class Constant {
     public static Integer LOCK = 1;
     public static Integer SOLD = 2;
 
-    static  public String vacancySeat = repeat("0", searchMovieTypeNumber);
+    static  public String vacancySeat = repeat("0", seatsNumber);
 }
