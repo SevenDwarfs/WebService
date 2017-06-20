@@ -153,6 +153,15 @@ public class MovieServiceImpl implements MovieService {
             calendar.setTime(movie.getReleaseDate());
             if (calendar.get(Calendar.YEAR) != year) {it.remove(); continue; }
         }
+    }
 
+    @Override
+    public List<Movie> findByNameContaining(String name) {
+        List<Movie> movieList1 = movieRepository.findByChineseNameContaining
+                (name);
+        List<Movie> movieList2 = movieRepository.findByEnglishNameContaining
+                (name);
+        movieList1.addAll(movieList2);
+        return movieList1;
     }
 }

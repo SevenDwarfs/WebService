@@ -57,4 +57,7 @@ public interface MovieService {
 
 
     void filterMovieByYear(List<Movie> movieList, int year);
+
+    @Transactional(readOnly = true)
+    List<Movie> findByNameContaining(String name);
 }
