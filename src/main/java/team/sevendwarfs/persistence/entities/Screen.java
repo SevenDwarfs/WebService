@@ -44,7 +44,7 @@ public class Screen {
     private String movieName;
 
     @Column(name = "seats", length = 88)
-    private String seats;
+    private String seats = Constant.vacancySeat;
 
     public Screen() {
     }
@@ -132,18 +132,4 @@ public class Screen {
         this.seats = seats;
     }
 
-    @Override
-    public String toString() {
-        return "Screen{" +
-                "id=" + id +
-                ", showDate=" + showDate +
-                ", showTime='" + showTime + '\'' +
-                ", language='" + language + '\'' +
-                ", room='" + room + '\'' +
-                ", price=" + price +
-                ", cinema=" + cinema +
-                ", movieName='" + movieName + '\'' +
-                ", seats='" + seats + '\'' +
-                '}';
-    }
 }

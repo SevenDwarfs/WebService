@@ -8,15 +8,25 @@
 
 ## 用户登录/注册
 
-|          路由           |  方法  |                    说明                    |            |  测试  |
-| :-------------------: | :--: | :--------------------------------------: | :--------: | :--: |
-|      /api/login       | POST | 提交用户登录表单 username, password, 允许邮箱/手机/用户名登录 |            |  OK  |
-|      /api/signup      | POST | 提交用户注册表单 username, password, email, phone |            |  OK  |
-|      /api/logout      | PUT  |                    登出                    |            |  OK  |
-|       /api/user       | GET  |                 获取当前用户信息                 |            |  OK  |
-|       /api/user       | PUT  | 修改当前用户信息，填写需要修改的项，username，email，phone，oldPassword，newPassword |            |  OK  |
-|    /api/user/order    | GET  |                查看该用户的所有订单                | OrderModel |  OK  |
-| /api/user/screen/{id} | PUT  |           锁定/购买座位，需要上传 需要用户登录后           |  Seat 见后文  |      |
+|          路由           |  方法  |                    说明                    |                   提交格式                   |  测试  |
+| :-------------------: | :--: | :--------------------------------------: | :--------------------------------------: | :--: |
+|      /api/login       | POST | 提交用户登录表单 username, password, 允许邮箱/手机/用户名登录 |                                          |  OK  |
+|      /api/signup      | POST | 提交用户注册表单 username, password, email, phone |                                          |  OK  |
+|      /api/logout      | PUT  |                    登出                    |                                          |  OK  |
+|       /api/user       | GET  |                 获取当前用户信息                 |                                          |  OK  |
+|       /api/user       | PUT  | 修改当前用户信息，填写需要修改的项，username，email，phone，oldPassword，newPassword |                                          |  OK  |
+|    /api/user/order    | GET  |                查看该用户的所有订单                |                OrderModel                |  OK  |
+| /api/user/screen/{id} | PUT  |           锁定/购买座位，需要上传 需要用户登录后           | seat={88长字符串, 锁定的位置用1表示，购买位置用2表示，其他用0填充} |      |
+
+```
+购票例子：
+表单格式：
+seat=1100000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+// 表示锁定第1，2个位置
+seat=0022000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+// 表示购买第1，2个位置
+// 购买前需要先锁定
+```
 
 ```java
 public class OrderModel {
