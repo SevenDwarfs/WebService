@@ -188,6 +188,8 @@ public class MovieController {
                                          String pageStr,
                                          @RequestParam(value="step")
                                          String stepStr) {
+        if (yearStr.equals("all")) { yearStr = "0"; }
+
         int page = 0;
         int step = 0;
         int year = 0;
@@ -216,6 +218,7 @@ public class MovieController {
     public Integer getMovieCount(@RequestParam(value="type") String type,
                                  @RequestParam(value="area") String area,
                                  @RequestParam(value="year") String yearStr) {
+        if (yearStr.equals("all")) { yearStr = "0"; }
         int year = 0;
         try {
             year = Integer.parseInt(yearStr);

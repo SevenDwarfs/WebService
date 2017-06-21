@@ -55,17 +55,17 @@ CinemaModel {
 
 ## 获取电影信息
 
-|                    路由                    |  方法  |                  说明                   |       返回值       |  测试  |
-| :--------------------------------------: | :--: | :-----------------------------------: | :-------------: | :--: |
-|         /api/movie/name/{查询电影名}          | GET  |     返回电影名对应信息，允许查询中英文电影名，返回一条记录或空     |    SimpMovie    |  OK  |
-|       /api/movie/type/{type}?id=ID       | GET  |   返回电影类型列表, 数目为从id开始往后20条，默认id = 0    | List<SimpMovie> |  OK  |
-|       /api/movie/date/day/20170501       | GET  | 返回2017-05-01上映的电影列表，如果输入非法日期，返回当天上映列表 | List<SimpMovie> |  OK  |
-|       /api/movie/date/month/201705       | GET  |  返回2017-05上映的电影列表，如果输入非法日期，返回当月上映列表   | List<SimpMovie> |  OK  |
-|        /api/movie/date/year/2017         | GET  |    返回2017上映的电影列表，如果输入非法日期，返回当年上映列表    | List<SimpMovie> |  OK  |
-|             /api/movie/{id}              | GET  |            返回ID=id的电影详细信息             |      Movie      |  OK  |
-|       /api/movie/showing/{number}        | GET  |        返回最近一个月上映的电影列表,number条         | List<SimpMovie> |  OK  |
-| /api/movie/query/count?type={}&area={}&year={} | GET  |               year=2007               |     Integer     |  OK  |
-| /api/movie/query?type={}&area={}&year={}&page={}&step={} | GET  |  返回 [page\*stap, page\*step+step]的数据  | List<SimpMovie> |  OK  |
+|                    路由                    |  方法  |                    说明                    |       返回值       |  测试  |
+| :--------------------------------------: | :--: | :--------------------------------------: | :-------------: | :--: |
+|         /api/movie/name/{查询电影名}          | GET  |      返回电影名对应信息，允许查询中英文电影名，返回一条记录或空       |    SimpMovie    |  OK  |
+|       /api/movie/type/{type}?id=ID       | GET  |     返回电影类型列表, 数目为从id开始往后20条，默认id = 0     | List<SimpMovie> |  OK  |
+|       /api/movie/date/day/20170501       | GET  |  返回2017-05-01上映的电影列表，如果输入非法日期，返回当天上映列表   | List<SimpMovie> |  OK  |
+|       /api/movie/date/month/201705       | GET  |    返回2017-05上映的电影列表，如果输入非法日期，返回当月上映列表    | List<SimpMovie> |  OK  |
+|        /api/movie/date/year/2017         | GET  |     返回2017上映的电影列表，如果输入非法日期，返回当年上映列表      | List<SimpMovie> |  OK  |
+|             /api/movie/{id}              | GET  |              返回ID=id的电影详细信息              |      Movie      |  OK  |
+|       /api/movie/showing/{number}        | GET  |          返回最近一个月上映的电影列表,number条          | List<SimpMovie> |  OK  |
+| /api/movie/query/count?type={}&area={}&year={} | GET  |   year=2007, 允许type,area,year字段为"all"    |     Integer     |  OK  |
+| /api/movie/query?type={}&area={}&year={}&page={}&step={} | GET  | 返回 [page\*stap, page\*step+step]的数据,允许type,area,year字段为"all" | List<SimpMovie> |  OK  |
 
 ```java
 SimpMovie {

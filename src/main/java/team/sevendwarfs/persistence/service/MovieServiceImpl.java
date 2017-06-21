@@ -145,6 +145,8 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void filterMovieByYear(List<Movie> movieList, int year) {
+        if (year == 0) return;
+
         Iterator<Movie> it = movieList.iterator();
         Calendar calendar = Calendar.getInstance();
         while (it.hasNext()) {
