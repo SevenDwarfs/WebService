@@ -137,15 +137,28 @@ public class UserController {
                 "用户未登录"); }
         if (seat.length() != Constant.seatsNumber) {
             return new ResponseState(ResponseState.ERROR,
-                    "提交字符串长度应为" + ResponseState.ERROR);
+                    "提交字符串长度应为" + Constant.seatsNumber);
+        }
+
+        char type = SeatUtil.judgeType(seat);
+        if (type != Constant.vacancy && type != Constant.lock &&
+                type != Constant.sold) {
+            return new ResponseState(ResponseState.ERROR, "提交字符串内容错误");
         }
 
         Screen screen = screenService.findById(id);
+        if (screen == null) {
+            return new ResponseState(ResponseState.ERROR, "该场次不存在");
+        }
         if (screen.getSeats() == null) {
             screen.setSeats(Constant.vacancySeat);
         }
 
         StringBuffer seatBuffer = new StringBuffer(screen.getSeats());
+
+        if (!SeatUtil.validSeatVacancy(seat, seatBuffer)) {
+            return new ResponseState(ResponseState.ERROR, "取消锁定失败，座位未锁定");
+        }
 
         if (!SeatUtil.validSeatLock(seat, seatBuffer)) {
             return new ResponseState(ResponseState.ERROR, "锁定座位失败,座位已经被锁定或售出");
@@ -165,12 +178,14 @@ public class UserController {
         /**
          * 添加订单到用户状态中
          */
-        FilmOrder filmOrder = new FilmOrder(user, screen.getId(), seat);
-        user = userService.findOne(user.getId());
+        if (type == Constant.sold) {
+            FilmOrder filmOrder = new FilmOrder(user, screen.getId(), seat);
+            user = userService.findOne(user.getId());
 
-        filmOrderService.create(filmOrder);
-        user.getFilmOrderList().add(filmOrder);
-        userService.update(user);
+            filmOrderService.create(filmOrder);
+            user.getFilmOrderList().add(filmOrder);
+            userService.update(user);
+        }
 
         return new ResponseState(ResponseState.SUCCESS);
 
