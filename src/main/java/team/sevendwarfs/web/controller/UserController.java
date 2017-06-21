@@ -156,7 +156,8 @@ public class UserController {
 
         StringBuffer seatBuffer = new StringBuffer(screen.getSeats());
 
-        if (!SeatUtil.validSeatVacancy(seat, seatBuffer)) {
+        if (type == Constant.vacancy && !SeatUtil.validSeatVacancy(seat,
+                seatBuffer)) {
             return new ResponseState(ResponseState.ERROR, "取消锁定失败，座位未锁定");
         }
 
@@ -171,7 +172,7 @@ public class UserController {
         /**
          * 更改场次的座位信息
          */
-        SeatUtil.changeSeatState(seat, seatBuffer);
+        SeatUtil.changeSeatState(seat, seatBuffer, type);
         screen.setSeats(new String(seatBuffer));
         screenService.update(screen);
 

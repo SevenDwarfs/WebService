@@ -89,6 +89,11 @@ public class ScreenController {
             screens.add(screen);
             return screens;
         } else {
+            for (Screen screen : screenList) {
+                if (screen.getSeats() == null) {
+                    screen.setSeats(Constant.vacancySeat);
+                }
+            }
             return screenList;
         }
 
@@ -97,7 +102,9 @@ public class ScreenController {
     @GetMapping("/{id}")
     @ResponseBody
     public Screen getScreenById(@PathVariable("id") Integer id) {
-        return screenService.findById(id);
+        Screen screen = screenService.findById(id);
+        if (screen.getSeats() == null) { screen.setSeats(Constant.vacancySeat);}
+        return screen;
     }
 
 

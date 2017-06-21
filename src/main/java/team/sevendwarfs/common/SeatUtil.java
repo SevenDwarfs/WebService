@@ -62,10 +62,13 @@ public class SeatUtil {
 
     }
 
-    static public void changeSeatState(String seat, StringBuffer seatBuffer) {
-        for (int i = 0; i < seat.length(); i++) {
-            if (seat.charAt(i) == Constant.vacancy) {
-                seatBuffer.setCharAt(i, Constant.vacancy);
+    static public void changeSeatState(String seat, StringBuffer seatBuffer,
+                                       char type) {
+        if (type == Constant.vacancy) {
+            for (int i = 0; i < seat.length(); i++) {
+                if (seat.charAt(i) == Constant.vacancy) {
+                    seatBuffer.setCharAt(i, Constant.vacancy);
+                }
             }
         }
 
