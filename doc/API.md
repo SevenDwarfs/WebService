@@ -8,15 +8,25 @@
 
 ## 用户登录/注册
 
-|          路由           |  方法  |                    说明                    |            |  测试  |
-| :-------------------: | :--: | :--------------------------------------: | :--------: | :--: |
-|      /api/login       | POST | 提交用户登录表单 username, password, 允许邮箱/手机/用户名登录 |            |  OK  |
-|      /api/signup      | POST | 提交用户注册表单 username, password, email, phone |            |  OK  |
-|      /api/logout      | PUT  |                    登出                    |            |  OK  |
-|       /api/user       | GET  |                 获取当前用户信息                 |            |  OK  |
-|       /api/user       | PUT  | 修改当前用户信息，填写需要修改的项，username，email，phone，oldPassword，newPassword |            |  OK  |
-|    /api/user/order    | GET  |                查看该用户的所有订单                | OrderModel |  OK  |
-| /api/user/screen/{id} | PUT  |           锁定/购买座位，需要上传 需要用户登录后           |  Seat 见后文  |      |
+|          路由           |  方法  |                    说明                    |                   提交格式                   |  测试  |
+| :-------------------: | :--: | :--------------------------------------: | :--------------------------------------: | :--: |
+|      /api/login       | POST | 提交用户登录表单 username, password, 允许邮箱/手机/用户名登录 |                                          |  OK  |
+|      /api/signup      | POST | 提交用户注册表单 username, password, email, phone |                                          |  OK  |
+|      /api/logout      | PUT  |                    登出                    |                                          |  OK  |
+|       /api/user       | GET  |                 获取当前用户信息                 |                                          |  OK  |
+|       /api/user       | PUT  | 修改当前用户信息，填写需要修改的项，username，email，phone，oldPassword，newPassword |                                          |  OK  |
+|    /api/user/order    | GET  |                查看该用户的所有订单                |                OrderModel                |  OK  |
+| /api/user/screen/{id} | PUT  |           锁定/购买座位，需要上传 需要用户登录后           | seat={88长字符串, 锁定的位置用1表示，购买位置用2表示，其他用0填充} |      |
+
+```
+购票例子：
+表单格式：
+seat=1100000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+// 表示锁定第1，2个位置
+seat=0022000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+// 表示购买第1，2个位置
+// 购买前需要先锁定
+```
 
 ```java
 public class OrderModel {
@@ -55,17 +65,17 @@ CinemaModel {
 
 ## 获取电影信息
 
-|                    路由                    |  方法  |                  说明                   |       返回值       |  测试  |
-| :--------------------------------------: | :--: | :-----------------------------------: | :-------------: | :--: |
-|         /api/movie/name/{查询电影名}          | GET  |     返回电影名对应信息，允许查询中英文电影名，返回一条记录或空     |    SimpMovie    |  OK  |
-|       /api/movie/type/{type}?id=ID       | GET  |   返回电影类型列表, 数目为从id开始往后20条，默认id = 0    | List<SimpMovie> |  OK  |
-|       /api/movie/date/day/20170501       | GET  | 返回2017-05-01上映的电影列表，如果输入非法日期，返回当天上映列表 | List<SimpMovie> |  OK  |
-|       /api/movie/date/month/201705       | GET  |  返回2017-05上映的电影列表，如果输入非法日期，返回当月上映列表   | List<SimpMovie> |  OK  |
-|        /api/movie/date/year/2017         | GET  |    返回2017上映的电影列表，如果输入非法日期，返回当年上映列表    | List<SimpMovie> |  OK  |
-|             /api/movie/{id}              | GET  |            返回ID=id的电影详细信息             |      Movie      |  OK  |
-|       /api/movie/showing/{number}        | GET  |        返回最近一个月上映的电影列表,number条         | List<SimpMovie> |  OK  |
-| /api/movie/query/count?type={}&area={}&year={} | GET  |               year=2007               |     Integer     |      |
-| /api/movie/query?type={}&area={}&year={}&page={}&step={} | GET  |  返回 [page\*stap, page\*step+step]的数据  | List<SimpMovie> |      |
+|                    路由                    |  方法  |                    说明                    |       返回值       |  测试  |
+| :--------------------------------------: | :--: | :--------------------------------------: | :-------------: | :--: |
+|         /api/movie/name/{查询电影名}          | GET  |      返回电影名对应信息，允许查询中英文电影名，返回一条记录或空       |    SimpMovie    |  OK  |
+|       /api/movie/type/{type}?id=ID       | GET  |     返回电影类型列表, 数目为从id开始往后20条，默认id = 0     | List<SimpMovie> |  OK  |
+|       /api/movie/date/day/20170501       | GET  |  返回2017-05-01上映的电影列表，如果输入非法日期，返回当天上映列表   | List<SimpMovie> |  OK  |
+|       /api/movie/date/month/201705       | GET  |    返回2017-05上映的电影列表，如果输入非法日期，返回当月上映列表    | List<SimpMovie> |  OK  |
+|        /api/movie/date/year/2017         | GET  |     返回2017上映的电影列表，如果输入非法日期，返回当年上映列表      | List<SimpMovie> |  OK  |
+|             /api/movie/{id}              | GET  |              返回ID=id的电影详细信息              |      Movie      |  OK  |
+|       /api/movie/showing/{number}        | GET  |          返回最近一个月上映的电影列表,number条          | List<SimpMovie> |  OK  |
+| /api/movie/query/count?type={}&area={}&year={} | GET  |   year=2007, 允许type,area,year字段为"all"    |     Integer     |  OK  |
+| /api/movie/query?type={}&area={}&year={}&page={}&step={} | GET  | 返回 [page\*stap, page\*step+step]的数据,允许type,area,year字段为"all" | List<SimpMovie> |  OK  |
 
 ```java
 SimpMovie {
@@ -120,10 +130,10 @@ Cinema {
 
 ## 获取排片信息
 
-|                 路由                 |  方法  |        说明         | 接受内容 |     返回值      |  测试  |
-| :--------------------------------: | :--: | :---------------: | :--: | :----------: | :--: |
-| /api/screen?cinemaid={}&movieid={} | GET  | 获取对应影院对应电影的排片情况列表 |      | List<Screen> |  OK  |
-|          /api/screen/{id}          | GET  |    获取对应id的排片情况    |      |    Screen    |  OK  |
+|                    路由                    |  方法  |        说明         | 接受内容 |     返回值      |  测试  |
+| :--------------------------------------: | :--: | :---------------: | :--: | :----------: | :--: |
+| /api/screen?cinemaid={}&movieid={}&date={}&time={} | GET  | 获取对应影院对应电影的排片情况列表 |      | List<Screen> |  OK  |
+|             /api/screen/{id}             | GET  |    获取对应id的排片情况    |      |    Screen    |  OK  |
 
 
 ```java
@@ -144,3 +154,10 @@ Screen {
     private String seats; // '0'->空位,'1'->被锁定,'2'->已售出 8x11 列优先, 比如2行1列下标为8
 }
 ```
+
+## 搜索功能
+
+|          路由          |  方法  |        说明        |       返回值       |  测试  |
+| :------------------: | :--: | :--------------: | :-------------: | :--: |
+| /api/search?query={} | GET  | 目前只能搜索影片(可以模糊搜索) | List<SimpMovie> |  OK  |
+

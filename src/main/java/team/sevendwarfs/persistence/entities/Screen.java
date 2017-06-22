@@ -1,6 +1,7 @@
 package team.sevendwarfs.persistence.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import team.sevendwarfs.common.Constant;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -42,8 +43,8 @@ public class Screen {
     @Column(name = "movie_name")
     private String movieName;
 
-    @Column(name = "seats")
-    private String seats;
+    @Column(name = "seats", length = 88)
+    private String seats = Constant.vacancySeat;
 
     public Screen() {
     }
@@ -131,18 +132,4 @@ public class Screen {
         this.seats = seats;
     }
 
-    @Override
-    public String toString() {
-        return "Screen{" +
-                "id=" + id +
-                ", showDate=" + showDate +
-                ", showTime='" + showTime + '\'' +
-                ", language='" + language + '\'' +
-                ", room='" + room + '\'' +
-                ", price=" + price +
-                ", cinema=" + cinema +
-                ", movieName='" + movieName + '\'' +
-                ", seats='" + seats + '\'' +
-                '}';
-    }
 }

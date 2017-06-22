@@ -188,6 +188,8 @@ public class MovieController {
                                          String pageStr,
                                          @RequestParam(value="step")
                                          String stepStr) {
+        if (yearStr.equals("all")) { yearStr = "0"; }
+
         int page = 0;
         int step = 0;
         int year = 0;
@@ -201,14 +203,8 @@ public class MovieController {
 
         List<Movie> movieList = movieService.findByTypeAndCountry(type, area);
 
-        Iterator<Movie> it = movieList.iterator();
-        while (it.hasNext()) {
-            Movie movie = it.next();
-            if (movie.getReleaseDate() == null || movie.getReleaseDate()
-                    .getYear() != year) {
-                it.remove();
-            }
-        }
+        movieService.filterMovieByYear(movieList, year);
+
 
         int len = movieList.size();
         int beginIndex = page * step;
@@ -222,6 +218,7 @@ public class MovieController {
     public Integer getMovieCount(@RequestParam(value="type") String type,
                                  @RequestParam(value="area") String area,
                                  @RequestParam(value="year") String yearStr) {
+        if (yearStr.equals("all")) { yearStr = "0"; }
         int year = 0;
         try {
             year = Integer.parseInt(yearStr);
@@ -231,14 +228,8 @@ public class MovieController {
 
         List<Movie> movieList = movieService.findByTypeAndCountry(type, area);
 
-        Iterator<Movie> it = movieList.iterator();
-        while (it.hasNext()) {
-            Movie movie = it.next();
-            if (movie.getReleaseDate() == null || movie.getReleaseDate()
-                    .getYear() != year) {
-                it.remove();
-            }
-        }
+        movieService.filterMovieByYear(movieList, year);
+
 
         return movieList.size();
     }

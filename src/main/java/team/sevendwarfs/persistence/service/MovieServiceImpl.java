@@ -84,7 +84,7 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<Movie> findByTypeAndCountry(String type, String country) {
         if (!"all".equals(type)&&!"all".equals(country)) {
-            return this.movieRepository.findByTypeAndCountry(type, country);
+            return this.movieRepository.findByTypeAndCountryContaining(type, country);
         } else if ("all".equals(type) && "all".equals(country)) {
             return this.movieRepository.findAll();
         } else if ("all".equals(type)) {
@@ -141,5 +141,29 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<Movie> findByType(String type, int id) {
         return findByType(type, id, Constant.searchMovieTypeNumber);
+    }
+
+    @Override
+    public void filterMovieByYear(List<Movie> movieList, int year) {
+        if (year == 0) return;
+
+        Iterator<Movie> it = movieList.iterator();
+        Calendar calendar = Calendar.getInstance();
+        while (it.hasNext()) {
+            Movie movie = it.next();
+            if (movie.getReleaseDate() == null) { it.remove(); continue; }
+            calendar.setTime(movie.getReleaseDate());
+            if (calendar.get(Calendar.YEAR) != year) {it.remove(); continue; }
+        }
+    }
+
+    @Override
+    public List<Movie> findByNameContaining(String name) {
+        List<Movie> movieList1 = movieRepository.findByChineseNameContaining
+                (name);
+        List<Movie> movieList2 = movieRepository.findByEnglishNameContaining
+                (name);
+        movieList1.addAll(movieList2);
+        return movieList1;
     }
 }
